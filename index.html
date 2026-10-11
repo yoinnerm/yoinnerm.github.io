@@ -32,6 +32,49 @@ footer{background:linear-gradient(110deg,#571b4c,#3c1239);color:#fff;padding:30p
 @media(max-width:560px){.topbar{font-size:10px}.topbar span:last-child{display:none}header{padding:14px 4%;gap:12px}.logo{font-size:27px}.mascot{width:42px;height:42px;font-size:25px}.headerlinks{font-size:11px;gap:9px}nav{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;white-space:nowrap;padding:12px 4%}.hero{padding:25px 5%;grid-template-columns:1fr;text-align:center}.hero p{margin-left:auto;margin-right:auto}.heroart{min-height:210px;grid-row:2}.cat{font-size:145px}.cake{font-size:55px}.speech{right:8%;top:0}.quicklinks{grid-template-columns:1fr 1fr}.quicklinks a{padding:11px;font-size:12px}.categories{grid-template-columns:repeat(4,1fr);gap:16px 8px}.bubble{width:62px;height:62px;font-size:27px}.category{font-size:11px}.products{grid-template-columns:repeat(2,1fr);gap:10px}.productimg{height:110px}.product h3{font-size:12px}.banners{grid-template-columns:1fr}.banner{min-height:145px;padding:18px}.banner h2{font-size:26px}.benefits{grid-template-columns:1fr 1fr}.benefit{align-items:flex-start;font-size:11px}.benefit .ico{font-size:20px;padding:9px}footer{grid-template-columns:1fr 1fr;gap:22px;padding:25px 5%}}
 </style>
 </head>
+###
+<div id="alicat-widget-root"></div>
+<script>
+(function() {
+  const ALICAT_CONFIG = {
+    appUrl: "https://ais-dev-xhivq3lnm52jpdlk56tzkd-717711680851.us-west2.run.app",
+    primaryColor: "#ec4899",
+    position: "right",
+    greeting: "¡Hola! Soy Alicat 🐱 ¿en qué dulce proyecto te ayudo hoy?"
+  };
+
+  // Crear botón flotante
+  const btn = document.createElement("button");
+  btn.id = "alicat-bubble-btn";
+  btn.innerHTML = '<span style="font-size:24px;margin-right:6px">🐱</span><span style="font-weight:700;font-size:13px">¡Pregúntale a Alicat! 💗</span>';
+  btn.style.cssText = "position:fixed;bottom:20px;right:20px;z-index:999999;background:linear-gradient(135deg, #ec4899, #9333ea);color:white;border:none;border-radius:30px;padding:12px 20px;box-shadow:0 8px 24px rgba(236,72,153,0.35);cursor:pointer;display:flex;align-items:center;font-family:system-ui,-apple-system,sans-serif;transition:transform 0.2s;";
+  btn.onmouseover = () => btn.style.transform = "scale(1.05)";
+  btn.onmouseout = () => btn.style.transform = "scale(1)";
+
+  // Crear ventana modal iframe
+  const frameWrap = document.createElement("div");
+  frameWrap.id = "alicat-modal-wrap";
+  frameWrap.style.cssText = "display:none;position:fixed;bottom:80px;right:20px;width:370px;height:520px;max-width:calc(100vw - 30px);max-height:calc(100vh - 100px);z-index:999999;box-shadow:0 12px 40px rgba(0,0,0,0.25);border-radius:24px;overflow:hidden;border:1px solid #fbcfe8;background:white;";
+  
+  const iframe = document.createElement("iframe");
+  iframe.src = ALICAT_CONFIG.appUrl;
+  iframe.style.cssText = "width:100%;height:100%;border:none;";
+  iframe.title = "Alicat AI - Asistente de Alicar Tienda";
+  frameWrap.appendChild(iframe);
+
+  btn.onclick = () => {
+    const isHidden = frameWrap.style.display === "none";
+    frameWrap.style.display = isHidden ? "block" : "none";
+    btn.innerHTML = isHidden 
+      ? '<span style="font-size:22px;margin-right:6px">✖</span><span style="font-weight:700;font-size:13px">Cerrar Alicat</span>'
+      : '<span style="font-size:24px;margin-right:6px">🐱</span><span style="font-weight:700;font-size:13px">¡Pregúntale a Alicat! 💗</span>';
+  };
+
+  document.body.appendChild(frameWrap);
+  document.body.appendChild(btn);
+})();
+</script>
+####
 <body>
 <div class="topbar"><span>🚚 Envíos a todo Venezuela　|　Tu aliado en la repostería 💗</span><span>♙ Iniciar sesión　 ♡ Registrarse</span></div>
 <header>
