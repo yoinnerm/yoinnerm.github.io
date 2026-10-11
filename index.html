@@ -1,53 +1,66 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sitio en Pruebas</title>
-    <style>
-        body {
-            font-family: system-ui, -apple-system, sans-serif;
-            background-color: #0f172a;
-            color: #f8fafc;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
-            text-align: center;
-            padding: 2rem;
-            background: #1e293b;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            max-width: 400px;
-            width: 100%;
-        }
-        h1 {
-            color: #38bdf8;
-            margin-bottom: 0.5rem;
-        }
-        p {
-            color: #94a3b8;
-        }
-        .status {
-            display: inline-block;
-            margin-top: 1rem;
-            padding: 0.5rem 1rem;
-            background: #065f46;
-            color: #34d399;
-            border-radius: 9999px;
-            font-size: 0.875rem;
-            font-weight: 500;
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alicar Tienda | Todo para la repostería</title>
+<meta name="description" content="Insumos, herramientas, kits y cursos para hacer, aprender y emprender en repostería. Envíos a toda Venezuela.">
+<style>
+:root{--pink:#f33178;--pink2:#ffe2ee;--plum:#4d1747;--ink:#20143d;--cream:#fff8f6;--blue:#dff3fb;--gold:#ffe9ad}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:#fff}
+a{color:inherit;text-decoration:none}.topbar{background:#fff0f6;padding:9px 4.5%;display:flex;justify-content:space-between;gap:12px;font-size:12px}
+header{padding:18px 4.5%;display:grid;grid-template-columns:220px minmax(180px,1fr) auto;gap:24px;align-items:center;border-bottom:1px solid #f4eaf0}
+.logo{font-weight:900;font-size:34px;letter-spacing:-1.5px;color:var(--plum);line-height:1}.logo small{display:block;text-align:right;font-size:13px;letter-spacing:4px;color:var(--pink)}
+.mascot{display:inline-grid;place-items:center;width:54px;height:54px;border-radius:50%;background:var(--pink2);font-size:32px;vertical-align:middle;margin-right:8px}
+.search{display:flex;border:1px solid #f5cbdc;border-radius:30px;overflow:hidden;max-width:620px;width:100%;background:white}.search input{border:0;outline:0;padding:13px 18px;flex:1;min-width:0}.search button,.btn{border:0;background:var(--pink);color:white;font-weight:750;border-radius:28px;padding:12px 22px;cursor:pointer}
+.headerlinks{display:flex;gap:18px;font-size:13px;white-space:nowrap}
+nav{display:flex;justify-content:center;gap:clamp(12px,2.4vw,32px);padding:13px 3%;font-size:13px;font-weight:700;border-bottom:1px solid #f4eaf0;flex-wrap:wrap}
+nav a:first-child{background:var(--pink);color:#fff;padding:10px 18px;border-radius:10px;margin-top:-8px;margin-bottom:-8px}
+.hero{padding:32px 4.5%;background:linear-gradient(110deg,#fff0e8,#ffe0eb 58%,#dff4f7);display:grid;grid-template-columns:1.05fr 1fr .72fr;gap:22px;align-items:center;min-height:360px;overflow:hidden}
+.script{font-family:"Brush Script MT","Segoe Script",cursive;font-style:italic;font-size:clamp(25px,3vw,40px);line-height:1.03;color:var(--plum);margin:0 0 8px}
+.hero h1{font-size:clamp(32px,4vw,54px);line-height:.98;letter-spacing:-1.8px;margin:0;color:#a91b59}.hero p{line-height:1.55;max-width:410px;font-size:15px}.heroart{display:grid;place-items:center;min-height:260px;position:relative}
+.cat{font-size:clamp(105px,16vw,190px);filter:drop-shadow(0 8px 2px #d59ab0);line-height:1}.cake{position:absolute;bottom:8px;right:1%;font-size:70px}.speech{position:absolute;top:5px;right:0;background:white;border-radius:50%;padding:18px;text-align:center;font-size:13px;font-weight:750;box-shadow:0 4px 16px #9b476022}
+.quicklinks{display:grid;gap:8px}.quicklinks a{border:2px solid #fff;background:#ffd9e8;padding:14px 16px;border-radius:22px;font-weight:700;font-size:14px;box-shadow:0 2px 5px #763d5512}.quicklinks a:nth-child(2){background:#ffedbc}.quicklinks a:nth-child(3){background:#d9f2f7}.quicklinks a:nth-child(4){background:#ffedbc}.quicklinks a:nth-child(5){background:#eadcfb}
+section{padding:26px 4.5%}.sectionhead{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:17px}.sectionhead h2{font-size:21px;margin:0;color:var(--plum)}.sectionhead a{font-size:13px;color:var(--pink);font-weight:750}
+.categories{display:grid;grid-template-columns:repeat(8,1fr);gap:14px}.category{text-align:center;font-size:13px;line-height:1.3}.bubble{width:78px;height:78px;max-width:100%;margin:0 auto 9px;border-radius:50%;display:grid;place-items:center;background:#ffe1ef;font-size:34px;border:1px solid #f9c7dc}.category:nth-child(3n) .bubble{background:#e0f2fb}.category:nth-child(4n) .bubble{background:#fff0c5}
+.products{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}.product{border:1px solid #e9e4eb;border-radius:12px;padding:10px;min-width:0;box-shadow:0 3px 10px #32132b06}.productimg{height:130px;border-radius:8px;background:linear-gradient(135deg,#fff2f7,#f6e8f2);display:grid;place-items:center;font-size:54px}.product h3{font-size:13px;font-weight:600;min-height:34px;margin:11px 0 5px}.stars{color:#e6a52a;font-size:12px}.price{font-weight:850;margin:8px 0 10px}.product .btn{width:100%;padding:10px 8px;font-size:12px}
+.banners{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding-top:0}.banner{border-radius:15px;padding:22px 25px;min-height:165px;background:linear-gradient(110deg,#ffe5ed,#fff6f2);display:flex;align-items:center;justify-content:space-between;gap:10px}.banner:nth-child(2){background:linear-gradient(110deg,#f0e4ff,#fff1fa)}.banner h2{font-family:"Brush Script MT","Segoe Script",cursive;font-style:italic;color:var(--pink);font-size:30px;line-height:1;margin:0 0 8px}.banner p{font-size:13px;line-height:1.4;margin:0 0 12px}.banner .art{font-size:66px}
+.benefits{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;padding-top:4px;padding-bottom:25px}.benefit{display:flex;align-items:center;gap:12px;font-size:12px;line-height:1.45}.benefit .ico{font-size:26px;background:#fff0f6;border-radius:50%;padding:12px}.benefit strong{display:block;font-size:13px;margin-bottom:3px}
+footer{background:linear-gradient(110deg,#571b4c,#3c1239);color:#fff;padding:30px 4.5%;display:grid;grid-template-columns:1.2fr 1fr 1.3fr 1.1fr;gap:28px;font-size:12px;line-height:1.8}footer h3{margin:0 0 10px;font-size:14px}footer a{display:block;color:#f8ddec}.subscribe{display:flex;margin-top:8px}.subscribe input{min-width:0;width:100%;padding:11px;border:0;border-radius:8px 0 0 8px}.subscribe button{border:0;background:var(--pink);color:#fff;padding:0 13px;border-radius:0 8px 8px 0;cursor:pointer}
+.notice{font-size:12px;color:#7c526c;text-align:center;padding:12px}
+@media(max-width:900px){header{grid-template-columns:1fr auto}.search{grid-column:1/-1;grid-row:2}.hero{grid-template-columns:1fr 1fr}.quicklinks{grid-column:1/-1;grid-template-columns:repeat(3,1fr)}.categories{grid-template-columns:repeat(4,1fr)}.products{grid-template-columns:repeat(3,1fr)}footer{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.topbar{font-size:10px}.topbar span:last-child{display:none}header{padding:14px 4%;gap:12px}.logo{font-size:27px}.mascot{width:42px;height:42px;font-size:25px}.headerlinks{font-size:11px;gap:9px}nav{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;white-space:nowrap;padding:12px 4%}.hero{padding:25px 5%;grid-template-columns:1fr;text-align:center}.hero p{margin-left:auto;margin-right:auto}.heroart{min-height:210px;grid-row:2}.cat{font-size:145px}.cake{font-size:55px}.speech{right:8%;top:0}.quicklinks{grid-template-columns:1fr 1fr}.quicklinks a{padding:11px;font-size:12px}.categories{grid-template-columns:repeat(4,1fr);gap:16px 8px}.bubble{width:62px;height:62px;font-size:27px}.category{font-size:11px}.products{grid-template-columns:repeat(2,1fr);gap:10px}.productimg{height:110px}.product h3{font-size:12px}.banners{grid-template-columns:1fr}.banner{min-height:145px;padding:18px}.banner h2{font-size:26px}.benefits{grid-template-columns:1fr 1fr}.benefit{align-items:flex-start;font-size:11px}.benefit .ico{font-size:20px;padding:9px}footer{grid-template-columns:1fr 1fr;gap:22px;padding:25px 5%}}
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>¡Hosting Activo!</h1>
-        <p>El servidor está funcionando correctamente y listo para cargar tu contenido.</p>
-        <div class="status">Estado: Online</div>
-    </div>
-</body>
-</html>
+<div class="topbar"><span>🚚 Envíos a todo Venezuela　|　Tu aliado en la repostería 💗</span><span>♙ Iniciar sesión　 ♡ Registrarse</span></div>
+<header>
+  <a class="logo" href="#"><span class="mascot">🐱</span>Alicar<small>TIENDA</small></a>
+  <form class="search" onsubmit="event.preventDefault(); alert('El buscador se conectará al catálogo en la siguiente etapa.');"><input aria-label="Buscar productos" placeholder="Buscar productos, cursos, kits..."><button aria-label="Buscar">⌕</button></form>
+  <div class="headerlinks"><a href="#productos">♡ Favoritos</a><a href="#productos">🛒 Mi carrito <b id="cartCount">0</b></a></div>
+</header>
+<nav><a href="#">⌂ Inicio</a><a href="#productos">Tortas Alicar</a><a href="#categorias">Insumos</a><a href="#categorias">Herramientas</a><a href="#categorias">Packaging</a><a href="#kits">Kits</a><a href="#cursos">Cursos</a><a href="#emprende">Emprende con Alicar</a><a href="#contacto">Contacto</a></nav>
+<main>
+<section class="hero">
+ <div><p class="script">Todo para hacer,</p><h1>aprender y<br>emprender</h1><p class="script">en repostería</p><p>Insumos, herramientas, kits, cursos y más... para que tus ideas dulces se hagan realidad.</p><a class="btn" href="#productos">🛒　Ver productos</a></div>
+ <div class="heroart"><div class="speech">¡Hola!<br>Soy Alicat<br>¿qué vamos a<br>hornear hoy? 💗</div><div class="cat">🐱</div><div class="cake">🎂</div></div>
+ <div class="quicklinks"><a href="#productos">🎂　Quiero hacer tortas</a><a href="#kits">🧁　Quiero empezar mi emprendimiento</a><a href="#categorias">🥄　Quiero decorar</a><a href="#categorias">📦　Necesito packaging</a><a href="#cursos">🎓　Quiero aprender</a></div>
+</section>
+<section id="categorias"><div class="sectionhead"><h2>❣ Categorías principales</h2></div><div class="categories">
+ <a class="category" href="#productos"><div class="bubble">🥣</div>Insumos<br>para repostería</a><a class="category" href="#productos"><div class="bubble">🫙</div>Decoración<br>y colorantes</a><a class="category" href="#productos"><div class="bubble">🧁</div>Boquillas y<br>mangas</a><a class="category" href="#productos"><div class="bubble">🖌️</div>Herramientas</a><a class="category" href="#productos"><div class="bubble">⭐</div>Moldes y<br>cortadores</a><a class="category" href="#productos"><div class="bubble">📦</div>Packaging<br>y cajas</a><a class="category" href="#kits"><div class="bubble">🎁</div>Kits<br>completos</a><a class="category" href="#cursos"><div class="bubble">🎓</div>Cursos</a>
+</div></section>
+<section id="productos"><div class="sectionhead"><h2>❣ Productos destacados</h2><a href="#productos">Ver todos →</a></div><div class="products">
+ <article class="product"><div class="productimg">🧁</div><h3>Kit de decoración básico</h3><div class="stars">★★★★★ <span style="color:#887d8a">(24)</span></div><div class="price">$ 18,50</div><button class="btn add">🛒 Agregar al carrito</button></article>
+ <article class="product"><div class="productimg">🎨</div><h3>Set de colorantes en gel (8 colores)</h3><div class="stars">★★★★★ <span style="color:#887d8a">(18)</span></div><div class="price">$ 14,90</div><button class="btn add">🛒 Agregar al carrito</button></article>
+ <article class="product"><div class="productimg">🍰</div><h3>Molde desmontable 20 cm</h3><div class="stars">★★★★★ <span style="color:#887d8a">(12)</span></div><div class="price">$ 9,80</div><button class="btn add">🛒 Agregar al carrito</button></article>
+ <article class="product"><div class="productimg">🎁</div><h3>Caja para torta 20 cm con ventana</h3><div class="stars">★★★★★ <span style="color:#887d8a">(9)</span></div><div class="price">$ 2,50</div><button class="btn add">🛒 Agregar al carrito</button></article>
+ <article class="product"><div class="productimg">🍬</div><h3>Sprinkles variados 100 g</h3><div class="stars">★★★★★ <span style="color:#887d8a">(15)</span></div><div class="price">$ 3,20</div><button class="btn add">🛒 Agregar al carrito</button></article>
+</div><p class="notice">Productos y precios de ejemplo: se reemplazarán por el catálogo real de Alicar.</p></section>
+<section class="banners" id="kits"><div class="banner"><div><h2>Kits para emprendedores</h2><p>Todo lo que necesitas para empezar tu negocio de repostería.</p><a class="btn" href="#contacto">Ver kits →</a></div><div class="art">🧁🎀</div></div><div class="banner" id="cursos"><div><h2>Cursos de repostería</h2><p>Aprende desde cero o perfecciona tus técnicas.</p><a class="btn" href="#contacto" style="background:#60318b">Ver cursos →</a></div><div class="art">🎓🍰</div></div></section>
+<section class="benefits"><div class="benefit"><span class="ico">🛡️</span><div><strong>Pagos seguros y confiables</strong>Cashea, Pago Móvil, transferencia y más.</div></div><div class="benefit"><span class="ico">🚚</span><div><strong>Envíos a todo el país</strong>Recibe tus pedidos donde estés en Venezuela.</div></div><div class="benefit"><span class="ico">🎧</span><div><strong>Atención personalizada</strong>Estamos para ayudarte en todo momento.</div></div><div class="benefit" id="emprende"><span class="ico">📈</span><div><strong>Emprende con Alicar</strong>Capacitación, kits y asesoría para tu negocio.</div></div></section>
+</main>
+<footer id="contacto"><div><div class="logo" style="color:white;font-size:30px"><span class="mascot">🐱</span>Alicar<small style="color:#ffc0dc">TIENDA</small></div><p>Todo para hacer, aprender y emprender en repostería.</p><p>◎　f　♪　▶</p></div><div><h3>Enlaces rápidos</h3><a href="#">Inicio</a><a href="#productos">Tienda</a><a href="#cursos">Cursos</a><a href="#emprende">Emprende con Alicar</a><a href="#contacto">Contacto</a></div><div><h3>Métodos de pago</h3><p>Pago Móvil　 Transferencia</p><p>Binance / USDT　 USD</p><small>Los métodos definitivos se configurarán al publicar la tienda.</small></div><div><h3>Suscríbete</h3><p>Recibe ofertas, novedades y tips de repostería.</p><form class="subscribe" onsubmit="event.preventDefault(); alert('¡Gracias! La suscripción se activará cuando conectemos el formulario.');"><input type="email" required placeholder="Tu correo electrónico" aria-label="Tu correo electrónico"><button>➜</button></form></div></footer>
+<script>
+let count=0;document.querySelectorAll('.add').forEach(button=>button.addEventListener('click',()=>{count++;document.getElementById('cartCount').textContent=count;button.textContent='✓ Agregado';setTimeout(()=>button.textContent='🛒 Agregar al carrito',1000)}));
+</script>
+</body></html>
