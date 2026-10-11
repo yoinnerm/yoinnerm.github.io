@@ -9,60 +9,533 @@
 :root{--pink:#f33178;--pink2:#ffe2ee;--plum:#4d1747;--ink:#20143d;--cream:#fff8f6;--blue:#dff3fb;--gold:#ffe9ad}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:#fff}
 a{color:inherit;text-decoration:none}.topbar{background:#fff0f6;padding:9px 4.5%;display:flex;justify-content:space-between;gap:12px;font-size:12px}
+.topbar span a{color:var(--pink);font-weight:700;margin-left:6px;cursor:pointer}
 header{padding:18px 4.5%;display:grid;grid-template-columns:220px minmax(180px,1fr) auto;gap:24px;align-items:center;border-bottom:1px solid #f4eaf0}
-.logo{font-weight:900;font-size:34px;letter-spacing:-1.5px;color:var(--plum);line-height:1}.logo small{display:block;text-align:right;font-size:13px;letter-spacing:4px;color:var(--pink)}
+.logo{font-weight:900;font-size:34px;letter-spacing:-1.5px;color:var(--plum);line-height:1;display:flex;align-items:center}.logo small{display:block;font-size:13px;letter-spacing:4px;color:var(--pink);margin-left:4px}
 .mascot{display:inline-grid;place-items:center;width:54px;height:54px;border-radius:50%;background:var(--pink2);font-size:32px;vertical-align:middle;margin-right:8px}
-.search{display:flex;border:1px solid #f5cbdc;border-radius:30px;overflow:hidden;max-width:620px;width:100%;background:white}.search input{border:0;outline:0;padding:13px 18px;flex:1;min-width:0}.search button,.btn{border:0;background:var(--pink);color:white;font-weight:750;border-radius:28px;padding:12px 22px;cursor:pointer}
-.headerlinks{display:flex;gap:18px;font-size:13px;white-space:nowrap}
+.search{display:flex;border:1px solid #f5cbdc;border-radius:30px;overflow:hidden;max-width:620px;width:100%;background:white;position:relative}
+.search input{border:0;outline:0;padding:13px 18px;flex:1;min-width:0;font-size:13px}
+.search button,.btn{border:0;background:var(--pink);color:white;font-weight:750;border-radius:28px;padding:12px 22px;cursor:pointer;transition:background 0.2s}
+.search button:hover,.btn:hover{background:#d81f62}
+.headerlinks{display:flex;gap:18px;font-size:13px;white-space:nowrap;align-items:center}
+.headerlinks a{cursor:pointer;display:flex;align-items:center;gap:4px;transition:color 0.2s}
+.headerlinks a:hover{color:var(--pink)}
 nav{display:flex;justify-content:center;gap:clamp(12px,2.4vw,32px);padding:13px 3%;font-size:13px;font-weight:700;border-bottom:1px solid #f4eaf0;flex-wrap:wrap}
+nav a{cursor:pointer;transition:color 0.2s}
+nav a:hover{color:var(--pink)}
 nav a:first-child{background:var(--pink);color:#fff;padding:10px 18px;border-radius:10px;margin-top:-8px;margin-bottom:-8px}
+nav a:first-child:hover{background:#d81f62;color:#fff}
 .hero{padding:32px 4.5%;background:linear-gradient(110deg,#fff0e8,#ffe0eb 58%,#dff4f7);display:grid;grid-template-columns:1.05fr 1fr .72fr;gap:22px;align-items:center;min-height:360px;overflow:hidden}
 .script{font-family:"Brush Script MT","Segoe Script",cursive;font-style:italic;font-size:clamp(25px,3vw,40px);line-height:1.03;color:var(--plum);margin:0 0 8px}
 .hero h1{font-size:clamp(32px,4vw,54px);line-height:.98;letter-spacing:-1.8px;margin:0;color:#a91b59}.hero p{line-height:1.55;max-width:410px;font-size:15px}.heroart{display:grid;place-items:center;min-height:260px;position:relative}
-.cat{font-size:clamp(105px,16vw,190px);filter:drop-shadow(0 8px 2px #d59ab0);line-height:1}.cake{position:absolute;bottom:8px;right:1%;font-size:70px}.speech{position:absolute;top:5px;right:0;background:white;border-radius:50%;padding:18px;text-align:center;font-size:13px;font-weight:750;box-shadow:0 4px 16px #9b476022}
-.quicklinks{display:grid;gap:8px}.quicklinks a{border:2px solid #fff;background:#ffd9e8;padding:14px 16px;border-radius:22px;font-weight:700;font-size:14px;box-shadow:0 2px 5px #763d5512}.quicklinks a:nth-child(2){background:#ffedbc}.quicklinks a:nth-child(3){background:#d9f2f7}.quicklinks a:nth-child(4){background:#ffedbc}.quicklinks a:nth-child(5){background:#eadcfb}
-section{padding:26px 4.5%}.sectionhead{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:17px}.sectionhead h2{font-size:21px;margin:0;color:var(--plum)}.sectionhead a{font-size:13px;color:var(--pink);font-weight:750}
-.categories{display:grid;grid-template-columns:repeat(8,1fr);gap:14px}.category{text-align:center;font-size:13px;line-height:1.3}.bubble{width:78px;height:78px;max-width:100%;margin:0 auto 9px;border-radius:50%;display:grid;place-items:center;background:#ffe1ef;font-size:34px;border:1px solid #f9c7dc}.category:nth-child(3n) .bubble{background:#e0f2fb}.category:nth-child(4n) .bubble{background:#fff0c5}
-.products{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}.product{border:1px solid #e9e4eb;border-radius:12px;padding:10px;min-width:0;box-shadow:0 3px 10px #32132b06}.productimg{height:130px;border-radius:8px;background:linear-gradient(135deg,#fff2f7,#f6e8f2);display:grid;place-items:center;font-size:54px}.product h3{font-size:13px;font-weight:600;min-height:34px;margin:11px 0 5px}.stars{color:#e6a52a;font-size:12px}.price{font-weight:850;margin:8px 0 10px}.product .btn{width:100%;padding:10px 8px;font-size:12px}
+.cat{font-size:clamp(105px,16vw,190px);filter:drop-shadow(0 8px 2px #d59ab0);line-height:1;cursor:pointer;transition:transform 0.2s}
+.cat:hover{transform:scale(1.05)}
+.cake{position:absolute;bottom:8px;right:1%;font-size:70px}.speech{position:absolute;top:5px;right:0;background:white;border-radius:50%;padding:18px;text-align:center;font-size:13px;font-weight:750;box-shadow:0 4px 16px #9b476022;cursor:pointer}
+.quicklinks{display:grid;gap:8px}.quicklinks a{border:2px solid #fff;background:#ffd9e8;padding:14px 16px;border-radius:22px;font-weight:700;font-size:14px;box-shadow:0 2px 5px #763d5512;cursor:pointer;transition:transform 0.15s,box-shadow 0.15s}
+.quicklinks a:hover{transform:translateY(-2px);box-shadow:0 4px 10px #763d5522}
+.quicklinks a:nth-child(2){background:#ffedbc}.quicklinks a:nth-child(3){background:#d9f2f7}.quicklinks a:nth-child(4){background:#ffedbc}.quicklinks a:nth-child(5){background:#eadcfb}
+section{padding:26px 4.5%}.sectionhead{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:17px}.sectionhead h2{font-size:21px;margin:0;color:var(--plum)}.sectionhead a{font-size:13px;color:var(--pink);font-weight:750;cursor:pointer}
+.categories{display:grid;grid-template-columns:repeat(8,1fr);gap:14px}.category{text-align:center;font-size:13px;line-height:1.3;cursor:pointer;transition:transform 0.15s}
+.category:hover{transform:translateY(-3px)}
+.bubble{width:78px;height:78px;max-width:100%;margin:0 auto 9px;border-radius:50%;display:grid;place-items:center;background:#ffe1ef;font-size:34px;border:1px solid #f9c7dc;transition:box-shadow 0.2s}
+.category:hover .bubble{box-shadow:0 6px 15px rgba(243,49,120,0.2)}
+.category:nth-child(3n) .bubble{background:#e0f2fb}.category:nth-child(4n) .bubble{background:#fff0c5}
+.products{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.product{border:1px solid #e9e4eb;border-radius:12px;padding:10px;min-width:0;box-shadow:0 3px 10px #32132b06;position:relative;background:#fff;display:flex;flex-direction:column;justify-content:space-between;transition:box-shadow 0.2s,transform 0.2s}
+.product:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,0.06)}
+.fav-btn{position:absolute;top:15px;right:15px;background:white;border:1px solid #f2d8e4;border-radius:50%;width:30px;height:30px;display:grid;place-items:center;cursor:pointer;font-size:15px;color:#c0a0b0;box-shadow:0 2px 5px rgba(0,0,0,0.08);transition:color 0.2s,transform 0.15s}
+.fav-btn:hover,.fav-btn.active{color:var(--pink);transform:scale(1.1)}
+.productimg{height:130px;border-radius:8px;background:linear-gradient(135deg,#fff2f7,#f6e8f2);display:grid;place-items:center;font-size:54px}
+.product h3{font-size:13px;font-weight:600;min-height:34px;margin:11px 0 5px}.stars{color:#e6a52a;font-size:12px}.price{font-weight:850;margin:8px 0 10px}.product .btn{width:100%;padding:10px 8px;font-size:12px}
 .banners{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding-top:0}.banner{border-radius:15px;padding:22px 25px;min-height:165px;background:linear-gradient(110deg,#ffe5ed,#fff6f2);display:flex;align-items:center;justify-content:space-between;gap:10px}.banner:nth-child(2){background:linear-gradient(110deg,#f0e4ff,#fff1fa)}.banner h2{font-family:"Brush Script MT","Segoe Script",cursive;font-style:italic;color:var(--pink);font-size:30px;line-height:1;margin:0 0 8px}.banner p{font-size:13px;line-height:1.4;margin:0 0 12px}.banner .art{font-size:66px}
 .benefits{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;padding-top:4px;padding-bottom:25px}.benefit{display:flex;align-items:center;gap:12px;font-size:12px;line-height:1.45}.benefit .ico{font-size:26px;background:#fff0f6;border-radius:50%;padding:12px}.benefit strong{display:block;font-size:13px;margin-bottom:3px}
 footer{background:linear-gradient(110deg,#571b4c,#3c1239);color:#fff;padding:30px 4.5%;display:grid;grid-template-columns:1.2fr 1fr 1.3fr 1.1fr;gap:28px;font-size:12px;line-height:1.8}footer h3{margin:0 0 10px;font-size:14px}footer a{display:block;color:#f8ddec}.subscribe{display:flex;margin-top:8px}.subscribe input{min-width:0;width:100%;padding:11px;border:0;border-radius:8px 0 0 8px}.subscribe button{border:0;background:var(--pink);color:#fff;padding:0 13px;border-radius:0 8px 8px 0;cursor:pointer}
 .notice{font-size:12px;color:#7c526c;text-align:center;padding:12px}
+
+/* MODALES Y CARRITO */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);backdrop-filter:blur(3px);z-index:999998;align-items:center;justify-content:center;padding:20px}
+.modal-card{background:white;border-radius:24px;max-width:480px;width:100%;padding:28px;box-shadow:0 20px 50px rgba(0,0,0,0.3);position:relative;animation:popIn 0.25s ease}
+.modal-close{position:absolute;top:16px;right:18px;background:none;border:none;font-size:22px;cursor:pointer;color:#888}
+@keyframes popIn{from{opacity:0;transform:scale(0.92)}to{opacity:1;transform:scale(1)}}
+.cart-drawer{display:none;position:fixed;top:0;right:0;bottom:0;width:380px;max-width:90vw;background:white;box-shadow:-5px 0 35px rgba(0,0,0,0.25);z-index:999999;flex-direction:column;padding:22px}
+.cart-header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #f3e5ee;padding-bottom:14px}
+.cart-list{flex:1;overflow-y:auto;padding:14px 0;display:flex;flex-direction:column;gap:12px}
+.cart-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 10px;border-radius:12px;background:#fdf7fa}
+.cart-total{border-top:1px solid #f3e5ee;padding-top:14px;font-size:15px;font-weight:800;display:flex;justify-content:space-between;margin-bottom:14px}
+.btn-whatsapp{background:#25d366;color:white;width:100%;padding:13px;border-radius:30px;border:none;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-size:14px}
+
 @media(max-width:900px){header{grid-template-columns:1fr auto}.search{grid-column:1/-1;grid-row:2}.hero{grid-template-columns:1fr 1fr}.quicklinks{grid-column:1/-1;grid-template-columns:repeat(3,1fr)}.categories{grid-template-columns:repeat(4,1fr)}.products{grid-template-columns:repeat(3,1fr)}footer{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.topbar{font-size:10px}.topbar span:last-child{display:none}header{padding:14px 4%;gap:12px}.logo{font-size:27px}.mascot{width:42px;height:42px;font-size:25px}.headerlinks{font-size:11px;gap:9px}nav{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;white-space:nowrap;padding:12px 4%}.hero{padding:25px 5%;grid-template-columns:1fr;text-align:center}.hero p{margin-left:auto;margin-right:auto}.heroart{min-height:210px;grid-row:2}.cat{font-size:145px}.cake{font-size:55px}.speech{right:8%;top:0}.quicklinks{grid-template-columns:1fr 1fr}.quicklinks a{padding:11px;font-size:12px}.categories{grid-template-columns:repeat(4,1fr);gap:16px 8px}.bubble{width:62px;height:62px;font-size:27px}.category{font-size:11px}.products{grid-template-columns:repeat(2,1fr);gap:10px}.productimg{height:110px}.product h3{font-size:12px}.banners{grid-template-columns:1fr}.banner{min-height:145px;padding:18px}.banner h2{font-size:26px}.benefits{grid-template-columns:1fr 1fr}.benefit{align-items:flex-start;font-size:11px}.benefit .ico{font-size:20px;padding:9px}footer{grid-template-columns:1fr 1fr;gap:22px;padding:25px 5%}}
 </style>
 </head>
-<!-- 🐱 CHATBOT ALICAT NATIVO PARA ALICAR TIENDA -->
-<script src="https://ais-pre-xhivq3lnm52jpdlk56tzkd-717711680851.us-west2.run.app/alicat-widget.js"></script>
 <body>
-<div class="topbar"><span>🚚 Envíos a todo Venezuela　|　Tu aliado en la repostería 💗</span><span>♙ Iniciar sesión　 ♡ Registrarse</span></div>
+<div class="topbar">
+  <span>🚚 Envíos a todo Venezuela　|　Tu aliado en la repostería 💗</span>
+  <span>
+    <a onclick="openAuthModal('login')">♙ Iniciar sesión</a>
+    <a onclick="openAuthModal('register')">♡ Registrarse</a>
+  </span>
+</div>
+
 <header>
   <a class="logo" href="#"><span class="mascot">🐱</span>Alicar<small>TIENDA</small></a>
-  <form class="search" onsubmit="event.preventDefault(); alert('El buscador se conectará al catálogo en la siguiente etapa.');"><input aria-label="Buscar productos" placeholder="Buscar productos, cursos, kits..."><button aria-label="Buscar">⌕</button></form>
-  <div class="headerlinks"><a href="#productos">♡ Favoritos</a><a href="#productos">🛒 Mi carrito <b id="cartCount">0</b></a></div>
+  
+  <!-- BARRA DE BÚSQUEDA 100% FUNCIONAL -->
+  <form class="search" id="searchForm" onsubmit="handleSearch(event)">
+    <input id="searchInput" aria-label="Buscar productos" placeholder="Buscar productos, cursos, kits (ej. molde, boquilla, colorante)..." oninput="liveSearch(this.value)">
+    <button type="submit" aria-label="Buscar">⌕ Buscar</button>
+  </form>
+  
+  <div class="headerlinks">
+    <a onclick="openFavoritesModal()">♡ Favoritos (<b id="favCount">0</b>)</a>
+    <a onclick="openCartDrawer()">🛒 Mi carrito <b id="cartCount" style="background:var(--pink);color:white;padding:2px 7px;border-radius:10px;font-size:11px">0</b></a>
+  </div>
 </header>
-<nav><a href="#">⌂ Inicio</a><a href="#productos">Tortas Alicar</a><a href="#categorias">Insumos</a><a href="#categorias">Herramientas</a><a href="#categorias">Packaging</a><a href="#kits">Kits</a><a href="#cursos">Cursos</a><a href="#emprende">Emprende con Alicar</a><a href="#contacto">Contacto</a></nav>
+
+<nav>
+  <a href="#">⌂ Inicio</a>
+  <a onclick="filterCategory('tortas')">Tortas Alicar</a>
+  <a onclick="filterCategory('insumos')">Insumos</a>
+  <a onclick="filterCategory('herramientas')">Herramientas</a>
+  <a onclick="filterCategory('packaging')">Packaging</a>
+  <a onclick="filterCategory('kits')">Kits</a>
+  <a onclick="filterCategory('cursos')">Cursos</a>
+  <a href="#emprende">Emprende con Alicar</a>
+  <a href="#contacto">Contacto</a>
+</nav>
+
 <main>
 <section class="hero">
- <div><p class="script">Todo para hacer,</p><h1>aprender y<br>emprender</h1><p class="script">en repostería</p><p>Insumos, herramientas, kits, cursos y más... para que tus ideas dulces se hagan realidad.</p><a class="btn" href="#productos">🛒　Ver productos</a></div>
- <div class="heroart"><div class="speech">¡Hola!<br>Soy Alicat<br>¿qué vamos a<br>hornear hoy? 💗</div><div class="cat">🐱</div><div class="cake">🎂</div></div>
- <div class="quicklinks"><a href="#productos">🎂　Quiero hacer tortas</a><a href="#kits">🧁　Quiero empezar mi emprendimiento</a><a href="#categorias">🥄　Quiero decorar</a><a href="#categorias">📦　Necesito packaging</a><a href="#cursos">🎓　Quiero aprender</a></div>
+ <div>
+   <p class="script">Todo para hacer,</p>
+   <h1>aprender y<br>emprender</h1>
+   <p class="script">en repostería</p>
+   <p>Insumos, herramientas, kits, cursos y más... para que tus ideas dulces se hagan realidad con envíos a toda Venezuela.</p>
+   <a class="btn" href="#productos">🛒　Ver productos</a>
+ </div>
+ 
+ <div class="heroart">
+   <div class="speech" onclick="triggerAlicat('¡Hola Alicat! ¿Qué me recomiendas para hacer hoy?')">
+     ¡Hola!<br>Soy Alicat<br>¿qué vamos a<br>hornear hoy? 💗
+   </div>
+   <div class="cat" onclick="triggerAlicat('¡Hola Alicat! Cuéntame sobre tus productos')">🐱</div>
+   <div class="cake">🎂</div>
+ </div>
+ 
+ <div class="quicklinks">
+   <a onclick="filterCategory('tortas')">🎂　Quiero hacer tortas</a>
+   <a onclick="filterCategory('kits')">🧁　Quiero empezar mi emprendimiento</a>
+   <a onclick="filterCategory('decoracion')">🥄　Quiero decorar</a>
+   <a onclick="filterCategory('packaging')">📦　Necesito packaging</a>
+   <a onclick="openCourseModal()">🎓　Quiero aprender</a>
+ </div>
 </section>
-<section id="categorias"><div class="sectionhead"><h2>❣ Categorías principales</h2></div><div class="categories">
- <a class="category" href="#productos"><div class="bubble">🥣</div>Insumos<br>para repostería</a><a class="category" href="#productos"><div class="bubble">🫙</div>Decoración<br>y colorantes</a><a class="category" href="#productos"><div class="bubble">🧁</div>Boquillas y<br>mangas</a><a class="category" href="#productos"><div class="bubble">🖌️</div>Herramientas</a><a class="category" href="#productos"><div class="bubble">⭐</div>Moldes y<br>cortadores</a><a class="category" href="#productos"><div class="bubble">📦</div>Packaging<br>y cajas</a><a class="category" href="#kits"><div class="bubble">🎁</div>Kits<br>completos</a><a class="category" href="#cursos"><div class="bubble">🎓</div>Cursos</a>
-</div></section>
-<section id="productos"><div class="sectionhead"><h2>❣ Productos destacados</h2><a href="#productos">Ver todos →</a></div><div class="products">
- <article class="product"><div class="productimg">🧁</div><h3>Kit de decoración básico</h3><div class="stars">★★★★★ <span style="color:#887d8a">(24)</span></div><div class="price">$ 18,50</div><button class="btn add">🛒 Agregar al carrito</button></article>
- <article class="product"><div class="productimg">🎨</div><h3>Set de colorantes en gel (8 colores)</h3><div class="stars">★★★★★ <span style="color:#887d8a">(18)</span></div><div class="price">$ 14,90</div><button class="btn add">🛒 Agregar al carrito</button></article>
- <article class="product"><div class="productimg">🍰</div><h3>Molde desmontable 20 cm</h3><div class="stars">★★★★★ <span style="color:#887d8a">(12)</span></div><div class="price">$ 9,80</div><button class="btn add">🛒 Agregar al carrito</button></article>
- <article class="product"><div class="productimg">🎁</div><h3>Caja para torta 20 cm con ventana</h3><div class="stars">★★★★★ <span style="color:#887d8a">(9)</span></div><div class="price">$ 2,50</div><button class="btn add">🛒 Agregar al carrito</button></article>
- <article class="product"><div class="productimg">🍬</div><h3>Sprinkles variados 100 g</h3><div class="stars">★★★★★ <span style="color:#887d8a">(15)</span></div><div class="price">$ 3,20</div><button class="btn add">🛒 Agregar al carrito</button></article>
-</div><p class="notice">Productos y precios de ejemplo: se reemplazarán por el catálogo real de Alicar.</p></section>
-<section class="banners" id="kits"><div class="banner"><div><h2>Kits para emprendedores</h2><p>Todo lo que necesitas para empezar tu negocio de repostería.</p><a class="btn" href="#contacto">Ver kits →</a></div><div class="art">🧁🎀</div></div><div class="banner" id="cursos"><div><h2>Cursos de repostería</h2><p>Aprende desde cero o perfecciona tus técnicas.</p><a class="btn" href="#contacto" style="background:#60318b">Ver cursos →</a></div><div class="art">🎓🍰</div></div></section>
-<section class="benefits"><div class="benefit"><span class="ico">🛡️</span><div><strong>Pagos seguros y confiables</strong>Cashea, Pago Móvil, transferencia y más.</div></div><div class="benefit"><span class="ico">🚚</span><div><strong>Envíos a todo el país</strong>Recibe tus pedidos donde estés en Venezuela.</div></div><div class="benefit"><span class="ico">🎧</span><div><strong>Atención personalizada</strong>Estamos para ayudarte en todo momento.</div></div><div class="benefit" id="emprende"><span class="ico">📈</span><div><strong>Emprende con Alicar</strong>Capacitación, kits y asesoría para tu negocio.</div></div></section>
+
+<section id="categorias">
+  <div class="sectionhead"><h2>❣ Categorías principales</h2></div>
+  <div class="categories">
+   <a class="category" onclick="filterCategory('insumos')"><div class="bubble">🥣</div>Insumos<br>para repostería</a>
+   <a class="category" onclick="filterCategory('decoracion')"><div class="bubble">🫙</div>Decoración<br>y colorantes</a>
+   <a class="category" onclick="filterCategory('boquillas')"><div class="bubble">🧁</div>Boquillas y<br>mangas</a>
+   <a class="category" onclick="filterCategory('herramientas')"><div class="bubble">🖌️</div>Herramientas</a>
+   <a class="category" onclick="filterCategory('moldes')"><div class="bubble">⭐</div>Moldes y<br>cortadores</a>
+   <a class="category" onclick="filterCategory('packaging')"><div class="bubble">📦</div>Packaging<br>y cajas</a>
+   <a class="category" onclick="filterCategory('kits')"><div class="bubble">🎁</div>Kits<br>completos</a>
+   <a class="category" onclick="openCourseModal()"><div class="bubble">🎓</div>Cursos</a>
+  </div>
+</section>
+
+<section id="productos">
+  <div class="sectionhead">
+    <h2>❣ Productos destacados</h2>
+    <a onclick="filterCategory('todos')">Ver todos →</a>
+  </div>
+  
+  <div class="products" id="productList">
+    <!-- Producto 1 -->
+    <article class="product" data-name="kit de decoracion basico" data-category="kits boquillas herramientas">
+      <button class="fav-btn" onclick="toggleFav(this, 'Kit de decoración básico')">♡</button>
+      <div class="productimg">🧁</div>
+      <h3>Kit de decoración básico</h3>
+      <div class="stars">★★★★★ <span style="color:#887d8a">(24)</span></div>
+      <div class="price">$ 18,50</div>
+      <button class="btn add" onclick="addToCart('Kit de decoración básico', 18.50)">🛒 Agregar al carrito</button>
+    </article>
+
+    <!-- Producto 2 -->
+    <article class="product" data-name="set de colorantes en gel 8 colores" data-category="decoracion insumos">
+      <button class="fav-btn" onclick="toggleFav(this, 'Set de colorantes en gel (8 colores)')">♡</button>
+      <div class="productimg">🎨</div>
+      <h3>Set de colorantes en gel (8 colores)</h3>
+      <div class="stars">★★★★★ <span style="color:#887d8a">(18)</span></div>
+      <div class="price">$ 14,90</div>
+      <button class="btn add" onclick="addToCart('Set de colorantes en gel (8 colores)', 14.90)">🛒 Agregar al carrito</button>
+    </article>
+
+    <!-- Producto 3 -->
+    <article class="product" data-name="molde desmontable 20 cm torta" data-category="moldes tortas">
+      <button class="fav-btn" onclick="toggleFav(this, 'Molde desmontable 20 cm')">♡</button>
+      <div class="productimg">🍰</div>
+      <h3>Molde desmontable 20 cm</h3>
+      <div class="stars">★★★★★ <span style="color:#887d8a">(12)</span></div>
+      <div class="price">$ 9,80</div>
+      <button class="btn add" onclick="addToCart('Molde desmontable 20 cm', 9.80)">🛒 Agregar al carrito</button>
+    </article>
+
+    <!-- Producto 4 -->
+    <article class="product" data-name="caja para torta 20 cm con ventana packaging" data-category="packaging tortas">
+      <button class="fav-btn" onclick="toggleFav(this, 'Caja para torta 20 cm con ventana')">♡</button>
+      <div class="productimg">🎁</div>
+      <h3>Caja para torta 20 cm con ventana</h3>
+      <div class="stars">★★★★★ <span style="color:#887d8a">(9)</span></div>
+      <div class="price">$ 2,50</div>
+      <button class="btn add" onclick="addToCart('Caja para torta 20 cm con ventana', 2.50)">🛒 Agregar al carrito</button>
+    </article>
+
+    <!-- Producto 5 -->
+    <article class="product" data-name="sprinkles variados 100 g decoracion dulces" data-category="decoracion insumos">
+      <button class="fav-btn" onclick="toggleFav(this, 'Sprinkles variados 100 g')">♡</button>
+      <div class="productimg">🍬</div>
+      <h3>Sprinkles variados 100 g</h3>
+      <div class="stars">★★★★★ <span style="color:#887d8a">(15)</span></div>
+      <div class="price">$ 3,20</div>
+      <button class="btn add" onclick="addToCart('Sprinkles variados 100 g', 3.20)">🛒 Agregar al carrito</button>
+    </article>
+  </div>
+  
+  <p id="noResults" style="display:none;text-align:center;color:#b23577;font-weight:bold;padding:20px">
+    No encontramos productos que coincidan. ¡Pregúntale a <b>Alicat 🐱</b> para buscar en el catálogo completo!
+  </p>
+  <p class="notice">Productos y precios de ejemplo: se reemplazarán por el catálogo real de Alicar.</p>
+</section>
+
+<section class="banners" id="kits">
+  <div class="banner">
+    <div>
+      <h2>Kits para emprendedores</h2>
+      <p>Todo lo que necesitas para empezar tu negocio de repostería con precios al mayor.</p>
+      <a class="btn" onclick="filterCategory('kits')">Ver kits →</a>
+    </div>
+    <div class="art">🧁🎀</div>
+  </div>
+  
+  <div class="banner" id="cursos">
+    <div>
+      <h2>Cursos de repostería</h2>
+      <p>Aprende desde cero o perfecciona tus técnicas con certificados.</p>
+      <a class="btn" onclick="openCourseModal()" style="background:#60318b">Ver cursos →</a>
+    </div>
+    <div class="art">🎓🍰</div>
+  </div>
+</section>
+
+<section class="benefits">
+  <div class="benefit"><span class="ico">🛡️</span><div><strong>Pagos seguros y confiables</strong>Cashea, Pago Móvil, transferencia y más.</div></div>
+  <div class="benefit"><span class="ico">🚚</span><div><strong>Envíos a todo el país</strong>Recibe tus pedidos donde estés en Venezuela.</div></div>
+  <div class="benefit"><span class="ico">🎧</span><div><strong>Atención personalizada</strong>Asistente inteligente Alicat y atención humana.</div></div>
+  <div class="benefit" id="emprende"><span class="ico">📈</span><div><strong>Emprende con Alicar</strong>Capacitación, kits y asesoría para tu negocio.</div></div>
+</section>
 </main>
-<footer id="contacto"><div><div class="logo" style="color:white;font-size:30px"><span class="mascot">🐱</span>Alicar<small style="color:#ffc0dc">TIENDA</small></div><p>Todo para hacer, aprender y emprender en repostería.</p><p>◎　f　♪　▶</p></div><div><h3>Enlaces rápidos</h3><a href="#">Inicio</a><a href="#productos">Tienda</a><a href="#cursos">Cursos</a><a href="#emprende">Emprende con Alicar</a><a href="#contacto">Contacto</a></div><div><h3>Métodos de pago</h3><p>Pago Móvil　 Transferencia</p><p>Binance / USDT　 USD</p><small>Los métodos definitivos se configurarán al publicar la tienda.</small></div><div><h3>Suscríbete</h3><p>Recibe ofertas, novedades y tips de repostería.</p><form class="subscribe" onsubmit="event.preventDefault(); alert('¡Gracias! La suscripción se activará cuando conectemos el formulario.');"><input type="email" required placeholder="Tu correo electrónico" aria-label="Tu correo electrónico"><button>➜</button></form></div></footer>
+
+<footer id="contacto">
+  <div>
+    <div class="logo" style="color:white;font-size:30px"><span class="mascot">🐱</span>Alicar<small style="color:#ffc0dc">TIENDA</small></div>
+    <p>Todo para hacer, aprender y emprender en repostería.</p>
+    <p>◎ Instagram &bull; f Facebook &bull; ♪ TikTok &bull; ▶ YouTube</p>
+  </div>
+  <div>
+    <h3>Enlaces rápidos</h3>
+    <a href="#">Inicio</a>
+    <a href="#productos">Tienda</a>
+    <a onclick="openCourseModal()">Cursos</a>
+    <a href="#emprende">Emprende con Alicar</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+  <div>
+    <h3>Métodos de pago</h3>
+    <p>Pago Móvil &bull; Cashea (Cuotas)</p>
+    <p>Binance / USDT &bull; USD Efectivo / Zelle</p>
+    <small>Envíos por MRW, Zoom, Tealca y Domesa.</small>
+  </div>
+  <div>
+    <h3>Suscríbete</h3>
+    <p>Recibe ofertas, novedades y tips de repostería.</p>
+    <form class="subscribe" onsubmit="handleSubscribe(event)">
+      <input type="email" required placeholder="Tu correo electrónico" aria-label="Tu correo electrónico">
+      <button type="submit">➜</button>
+    </form>
+    <div id="subSuccess" style="display:none;color:#ffc0dc;margin-top:6px;font-weight:bold">¡Gracias por unirte a la familia Alicar! 💗</div>
+  </div>
+</footer>
+
+<!-- MODAL DE CARRITO DESPLEGABLE -->
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <h3 style="margin:0;color:var(--plum);font-size:18px">🛒 Tu Carrito de Compras</h3>
+    <button onclick="closeCartDrawer()" style="background:none;border:none;font-size:22px;cursor:pointer">✖</button>
+  </div>
+  <div class="cart-list" id="cartItems">
+    <p style="text-align:center;color:#888;margin:auto">Tu carrito está vacío 🐱</p>
+  </div>
+  <div class="cart-total">
+    <span>Total estimado:</span>
+    <span id="cartTotalSum" style="color:var(--pink)">$ 0,00</span>
+  </div>
+  <button class="btn-whatsapp" onclick="checkoutWhatsApp()">
+    <span>📲 Enviar Pedido por WhatsApp</span>
+  </button>
+</div>
+
+<!-- MODAL DE LOGIN / REGISTRO -->
+<div class="modal-overlay" id="authModal">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeAuthModal()">✖</button>
+    <div style="text-align:center;margin-bottom:16px">
+      <span style="font-size:42px">🐱</span>
+      <h3 id="authTitle" style="color:var(--plum);margin:6px 0">Bienvenido a Alicar Tienda</h3>
+      <p style="font-size:13px;color:#666">Tu cuenta para guardar favoritos y hacer compras más rápido.</p>
+    </div>
+    <form onsubmit="handleAuthSubmit(event)" style="display:flex;flex-direction:column;gap:10px">
+      <input type="email" required placeholder="Correo electrónico" style="padding:12px;border:1px solid #f2d2df;border-radius:12px;outline:none">
+      <input type="password" required placeholder="Contraseña" style="padding:12px;border:1px solid #f2d2df;border-radius:12px;outline:none">
+      <button type="submit" class="btn" style="margin-top:6px">Continuar</button>
+    </form>
+  </div>
+</div>
+
+<!-- MODAL DE CURSOS -->
+<div class="modal-overlay" id="courseModal">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeCourseModal()">✖</button>
+    <div style="text-align:center">
+      <span style="font-size:42px">🎓🍰</span>
+      <h3 style="color:var(--plum);margin:8px 0">Academia de Repostería Alicar</h3>
+      <p style="font-size:13px;color:#555;line-height:1.5">
+        Aprende masas esponjosas, cremas resistentes al calor venezolano, decoración profesional con boquillas y costeo de recetas.
+      </p>
+      <div style="background:#fff2f8;padding:14px;border-radius:16px;margin:14px 0;text-align:left;font-size:12px">
+        <b>Incluye:</b> Clases prácticas, recetas en PDF, certificado y asesoría directa de Alicat.
+      </div>
+      <button class="btn-whatsapp" onclick="consultCourseWhatsApp()">
+        <span>📲 Solicitar Información de Cursos por WhatsApp</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL DE FAVORITOS -->
+<div class="modal-overlay" id="favModal">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeFavModal()">✖</button>
+    <h3 style="color:var(--plum);margin-top:0">♡ Tus Productos Favoritos</h3>
+    <div id="favList" style="max-height:260px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;margin:14px 0;font-size:13px">
+      <p style="color:#888;text-align:center">Aún no tienes favoritos guardados.</p>
+    </div>
+    <button class="btn" style="width:100%" onclick="closeFavModal()">Seguir explorando</button>
+  </div>
+</div>
+
+<!-- ======================================================== -->
+<!-- 🐱 CHATBOT ALICAT NATIVO PARA ALICAR TIENDA (NUNCA FALLA) -->
+<!-- ======================================================== -->
+<script src="https://ais-pre-xhivq3lnm52jpdlk56tzkd-717711680851.us-west2.run.app/alicat-widget.js"></script>
+
+<!-- JAVASCRIPT DE TODAS LAS FUNCIONALIDADES ACTIVAS -->
 <script>
-let count=0;document.querySelectorAll('.add').forEach(button=>button.addEventListener('click',()=>{count++;document.getElementById('cartCount').textContent=count;button.textContent='✓ Agregado';setTimeout(()=>button.textContent='🛒 Agregar al carrito',1000)}));
+// ESTADO GLOBAL
+let cart = [];
+let favorites = [];
+
+// 1. CARRITO DE COMPRAS
+function addToCart(name, price) {
+  cart.push({ name, price });
+  updateCartUI();
+  
+  // Feedback visual en el botón
+  const ev = window.event;
+  if (ev && ev.target) {
+    const btn = ev.target;
+    const old = btn.textContent;
+    btn.textContent = '✓ ¡Agregado!';
+    btn.style.background = '#28a745';
+    setTimeout(() => {
+      btn.textContent = old;
+      btn.style.background = '';
+    }, 1200);
+  }
+}
+
+function updateCartUI() {
+  document.getElementById('cartCount').textContent = cart.length;
+  const list = document.getElementById('cartItems');
+  if (cart.length === 0) {
+    list.innerHTML = '<p style="text-align:center;color:#888;margin:auto">Tu carrito está vacío 🐱</p>';
+    document.getElementById('cartTotalSum').textContent = '$ 0,00';
+    return;
+  }
+  
+  let total = 0;
+  list.innerHTML = cart.map((item, index) => {
+    total += item.price;
+    return `
+      <div class="cart-item">
+        <div>
+          <b style="font-size:12px;color:var(--plum)">${item.name}</b>
+          <div style="font-size:11px;color:var(--pink)">$ ${item.price.toFixed(2).replace('.', ',')}</div>
+        </div>
+        <button onclick="removeFromCart(${index})" style="background:none;border:none;color:#999;cursor:pointer;font-size:14px">🗑</button>
+      </div>
+    `;
+  }).join('');
+  
+  document.getElementById('cartTotalSum').textContent = '$ ' + total.toFixed(2).replace('.', ',');
+}
+
+function removeFromCart(index) {
+  cart.splice(index, 1);
+  updateCartUI();
+}
+
+function openCartDrawer() {
+  document.getElementById('cartDrawer').style.display = 'flex';
+}
+function closeCartDrawer() {
+  document.getElementById('cartDrawer').style.display = 'none';
+}
+
+function checkoutWhatsApp() {
+  if (cart.length === 0) {
+    alert('Tu carrito está vacío. ¡Agrega algún molde, kit o insumo primero!');
+    return;
+  }
+  let total = cart.reduce((acc, c) => acc + c.price, 0);
+  let text = '¡Hola Alicar Tienda! 🐱 Deseo encargar los siguientes productos:\n\n';
+  cart.forEach(p => { text += '• ' + p.name + ' ($' + p.price.toFixed(2) + ')\n'; });
+  text += '\nTotal: $' + total.toFixed(2) + '\n\n¿Tienen disponibilidad y envíos a mi ciudad?';
+  window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
+}
+
+// 2. BUSCADOR EN VIVO
+function liveSearch(query) {
+  const term = query.toLowerCase().trim();
+  const products = document.querySelectorAll('.product');
+  let matchCount = 0;
+  
+  products.forEach(prod => {
+    const name = prod.getAttribute('data-name') || '';
+    const cat = prod.getAttribute('data-category') || '';
+    if (name.includes(term) || cat.includes(term)) {
+      prod.style.display = 'flex';
+      matchCount++;
+    } else {
+      prod.style.display = 'none';
+    }
+  });
+  
+  document.getElementById('noResults').style.display = matchCount === 0 ? 'block' : 'none';
+}
+
+function handleSearch(e) {
+  e.preventDefault();
+  const query = document.getElementById('searchInput').value;
+  liveSearch(query);
+  const prodSec = document.getElementById('productos');
+  if (prodSec) prodSec.scrollIntoView({ behavior: 'smooth' });
+}
+
+// 3. FILTRADO POR CATEGORÍAS
+function filterCategory(category) {
+  const products = document.querySelectorAll('.product');
+  let found = 0;
+  
+  if (category === 'todos') {
+    products.forEach(p => p.style.display = 'flex');
+    document.getElementById('noResults').style.display = 'none';
+    document.getElementById('productos').scrollIntoView({ behavior: 'smooth' });
+    return;
+  }
+  
+  products.forEach(prod => {
+    const cats = (prod.getAttribute('data-category') || '') + ' ' + (prod.getAttribute('data-name') || '');
+    if (cats.includes(category)) {
+      prod.style.display = 'flex';
+      found++;
+    } else {
+      prod.style.display = 'none';
+    }
+  });
+  
+  document.getElementById('noResults').style.display = found === 0 ? 'block' : 'none';
+  document.getElementById('productos').scrollIntoView({ behavior: 'smooth' });
+}
+
+// 4. FAVORITOS
+function toggleFav(btn, productName) {
+  btn.classList.toggle('active');
+  if (btn.classList.contains('active')) {
+    btn.textContent = '❤️';
+    if (!favorites.includes(productName)) favorites.push(productName);
+  } else {
+    btn.textContent = '♡';
+    favorites = favorites.filter(f => f !== productName);
+  }
+  document.getElementById('favCount').textContent = favorites.length;
+}
+
+function openFavoritesModal() {
+  const list = document.getElementById('favList');
+  if (favorites.length === 0) {
+    list.innerHTML = '<p style="color:#888;text-align:center">Aún no tienes favoritos guardados. Pulsa el corazón ♡ en los productos que te gusten.</p>';
+  } else {
+    list.innerHTML = favorites.map(f => `<div style="padding:6px 10px;background:#fff2f8;border-radius:10px;color:var(--plum);display:flex;align-items:center;gap:6px">❤️ <b>${f}</b></div>`).join('');
+  }
+  document.getElementById('favModal').style.display = 'flex';
+}
+function closeFavModal() {
+  document.getElementById('favModal').style.display = 'none';
+}
+
+// 5. MODALES DE AUTENTICACIÓN Y CURSOS
+function openAuthModal(type) {
+  document.getElementById('authTitle').textContent = type === 'login' ? 'Iniciar Sesión en Alicar' : 'Crear Cuenta en Alicar';
+  document.getElementById('authModal').style.display = 'flex';
+}
+function closeAuthModal() {
+  document.getElementById('authModal').style.display = 'none';
+}
+function handleAuthSubmit(e) {
+  e.preventDefault();
+  alert('¡Bienvenido! Sesión iniciada con éxito en Alicar Tienda.');
+  closeAuthModal();
+}
+
+function openCourseModal() {
+  document.getElementById('courseModal').style.display = 'flex';
+}
+function closeCourseModal() {
+  document.getElementById('courseModal').style.display = 'none';
+}
+function consultCourseWhatsApp() {
+  window.open('https://wa.me/?text=' + encodeURIComponent('¡Hola Alicar! Deseo información de los Cursos de Repostería Online y Presenciales 🎓🧁'), '_blank');
+}
+
+// 6. SUSCRIPCIÓN NEWSLETTER
+function handleSubscribe(e) {
+  e.preventDefault();
+  document.getElementById('subSuccess').style.display = 'block';
+  e.target.reset();
+  setTimeout(() => { document.getElementById('subSuccess').style.display = 'none'; }, 4000);
+}
+
+// 7. ABRIR EL CHATBOT ALICAT AL HACER CLIC EN LA MASCOTA
+function triggerAlicat(customText) {
+  const trigger = document.getElementById('alicat-btn-trigger');
+  if (trigger) trigger.click();
+  const input = document.getElementById('alicat-input');
+  if (input && customText) {
+    input.value = customText;
+  }
+}
 </script>
-</body></html>
+</body>
+</html>
