@@ -64,6 +64,26 @@ footer{background:linear-gradient(110deg,#571b4c,#3c1239);color:#fff;padding:30p
 .cart-total{border-top:1px solid #f3e5ee;padding-top:14px;font-size:15px;font-weight:800;display:flex;justify-content:space-between;margin-bottom:14px}
 .btn-whatsapp{background:#25d366;color:white;width:100%;padding:13px;border-radius:30px;border:none;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-size:14px}
 
+/* WIDGET FLOTANTE DE ALICAT (100% INLINE - NUNCA FALLA) */
+#alicat-widget-container{position:fixed;bottom:20px;right:20px;z-index:9999999;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+#alicat-btn-trigger{display:flex;align-items:center;gap:10px;background:linear-gradient(135deg,#f33178,#9333ea);color:white;border:3px solid white;border-radius:50px;padding:12px 22px;box-shadow:0 10px 30px rgba(243,49,120,0.45);cursor:pointer;font-size:14px;font-weight:800;transition:transform .2s,box-shadow .2s;animation:bouncePulse 3s infinite}
+#alicat-btn-trigger:hover{transform:scale(1.06);box-shadow:0 14px 35px rgba(243,49,120,0.6)}
+@keyframes bouncePulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+#alicat-window{display:none;width:370px;height:520px;max-width:calc(100vw - 30px);max-height:calc(100vh - 90px);background:#fff;border-radius:24px;box-shadow:0 20px 60px rgba(0,0,0,0.3);border:1px solid #fbcfe8;overflow:hidden;flex-direction:column;margin-bottom:12px;animation:popIn .25s ease}
+#alicat-header{background:linear-gradient(135deg,#f33178,#7928ca);color:white;padding:14px 18px;display:flex;align-items:center;justify-content:space-between}
+#alicat-body{flex:1;overflow-y:auto;padding:16px;background:#fdf7fa;display:flex;flex-direction:column;gap:12px;font-size:13px}
+.alicat-bubble{max-width:85%;padding:10px 14px;border-radius:18px;line-height:1.5;word-wrap:break-word}
+.alicat-bubble-user{align-self:flex-end;background:linear-gradient(135deg,#f33178,#e11d48);color:white;border-bottom-right-radius:4px;box-shadow:0 3px 8px rgba(243,49,120,0.25)}
+.alicat-bubble-asst{align-self:flex-start;background:#fff;color:#2c1b2f;border:1px solid #fce7f3;border-bottom-left-radius:4px;box-shadow:0 3px 10px rgba(0,0,0,0.04)}
+#alicat-chips{padding:8px 14px;background:#fff;border-top:1px solid #fdf2f8;display:flex;gap:6px;overflow-x:auto;white-space:nowrap;scrollbar-width:none}
+.alicat-chip{background:#fff0f6;border:1px solid #fbcfe8;color:#be185d;font-size:11px;font-weight:700;padding:6px 12px;border-radius:20px;cursor:pointer;flex-shrink:0;transition:background .15s}
+.alicat-chip:hover{background:#fce7f3}
+#alicat-footer{padding:12px 14px;background:#fff;border-top:1px solid #fce7f3;display:flex;gap:8px}
+#alicat-input{flex:1;border:1.5px solid #fbcfe8;border-radius:14px;padding:10px 14px;font-size:13px;outline:none;transition:border-color .2s}
+#alicat-input:focus{border-color:#f33178}
+#alicat-send-btn{background:linear-gradient(135deg,#f33178,#9333ea);color:white;border:none;border-radius:14px;padding:10px 16px;font-weight:bold;cursor:pointer;transition:transform .15s}
+#alicat-send-btn:hover{transform:scale(1.05)}
+
 @media(max-width:900px){header{grid-template-columns:1fr auto}.search{grid-column:1/-1;grid-row:2}.hero{grid-template-columns:1fr 1fr}.quicklinks{grid-column:1/-1;grid-template-columns:repeat(3,1fr)}.categories{grid-template-columns:repeat(4,1fr)}.products{grid-template-columns:repeat(3,1fr)}footer{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.topbar{font-size:10px}.topbar span:last-child{display:none}header{padding:14px 4%;gap:12px}.logo{font-size:27px}.mascot{width:42px;height:42px;font-size:25px}.headerlinks{font-size:11px;gap:9px}nav{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;white-space:nowrap;padding:12px 4%}.hero{padding:25px 5%;grid-template-columns:1fr;text-align:center}.hero p{margin-left:auto;margin-right:auto}.heroart{min-height:210px;grid-row:2}.cat{font-size:145px}.cake{font-size:55px}.speech{right:8%;top:0}.quicklinks{grid-template-columns:1fr 1fr}.quicklinks a{padding:11px;font-size:12px}.categories{grid-template-columns:repeat(4,1fr);gap:16px 8px}.bubble{width:62px;height:62px;font-size:27px}.category{font-size:11px}.products{grid-template-columns:repeat(2,1fr);gap:10px}.productimg{height:110px}.product h3{font-size:12px}.banners{grid-template-columns:1fr}.banner{min-height:145px;padding:18px}.banner h2{font-size:26px}.benefits{grid-template-columns:1fr 1fr}.benefit{align-items:flex-start;font-size:11px}.benefit .ico{font-size:20px;padding:9px}footer{grid-template-columns:1fr 1fr;gap:22px;padding:25px 5%}}
 </style>
@@ -336,9 +356,54 @@ footer{background:linear-gradient(110deg,#571b4c,#3c1239);color:#fff;padding:30p
 </div>
 
 <!-- ======================================================== -->
-<!-- 🐱 CHATBOT ALICAT NATIVO PARA ALICAR TIENDA (NUNCA FALLA) -->
+<!-- 🐱 CHATBOT ALICAT FLOTANTE (100% INLINE - GARANTIZADO) -->
 <!-- ======================================================== -->
-<script src="https://ais-pre-xhivq3lnm52jpdlk56tzkd-717711680851.us-west2.run.app/alicat-widget.js"></script>
+<div id="alicat-widget-container">
+  <!-- Ventana de Chat -->
+  <div id="alicat-window">
+    <div id="alicat-header">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="font-size:24px;background:rgba(255,255,255,0.2);border-radius:12px;padding:3px 7px;">🐱</span>
+        <div>
+          <div style="font-weight:800;font-size:14px;letter-spacing:-0.3px;">Alicat AI</div>
+          <div style="font-size:10px;opacity:0.9;">Asistente de Alicar Tienda 💗</div>
+        </div>
+      </div>
+      <button onclick="toggleAlicatChat(false)" style="background:none;border:none;color:white;font-size:18px;cursor:pointer;">✖</button>
+    </div>
+    
+    <div id="alicat-body">
+      <div class="alicat-bubble alicat-bubble-asst">
+        ¡Hola! 🐱 Soy <b>Alicat</b>, tu compañero pastelero en <b>Alicar Tienda</b> 💗<br><br>
+        ¿En qué te puedo asesorar hoy?<br>
+        • 🧁 Insumos, boquillas y moldes desmontables<br>
+        • 📦 Cajas con ventana y packaging para tortas<br>
+        • 🚀 Kits para iniciar tu emprendimiento dulce<br>
+        • 🚚 Envíos a toda Venezuela (MRW, Zoom, Tealca)<br>
+        • 💳 Pagos con Cashea, Pago Móvil (BCV) y Binance
+      </div>
+    </div>
+    
+    <div id="alicat-chips">
+      <button class="alicat-chip" onclick="askAlicat('¿Qué precio tiene el kit de decoración y qué incluye?')">🧁 Kit Decoración ($18,50)</button>
+      <button class="alicat-chip" onclick="askAlicat('¿Qué métodos de pago aceptan (Cashea, Pago Móvil)?')">💳 Medios de pago</button>
+      <button class="alicat-chip" onclick="askAlicat('¿Cómo funcionan los envíos a toda Venezuela?')">🚚 Envíos Venezuela</button>
+      <button class="alicat-chip" onclick="askAlicat('¿Por qué se baja mi bizcocho en el centro?')">🎂 Tip: Bizcocho hundido</button>
+      <button class="alicat-chip" onclick="askAlicat('¿Qué molde me recomiendas para una torta de 12 porciones?')">🍰 Molde 20cm ($9,80)</button>
+    </div>
+    
+    <form id="alicat-footer" onsubmit="handleAlicatSubmit(event)">
+      <input id="alicat-input" type="text" placeholder="Pregunta sobre insumos, recetas..." autocomplete="off">
+      <button id="alicat-send-btn" type="submit">➤</button>
+    </form>
+  </div>
+
+  <!-- Botón Flotante con Mascota -->
+  <button id="alicat-btn-trigger" onclick="toggleAlicatChat()">
+    <span style="font-size:24px;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.15))">🐱</span>
+    <span>¡Pregúntale a Alicat! 💗</span>
+  </button>
+</div>
 
 <!-- JAVASCRIPT DE TODAS LAS FUNCIONALIDADES ACTIVAS -->
 <script>
@@ -527,14 +592,89 @@ function handleSubscribe(e) {
   setTimeout(() => { document.getElementById('subSuccess').style.display = 'none'; }, 4000);
 }
 
-// 7. ABRIR EL CHATBOT ALICAT AL HACER CLIC EN LA MASCOTA
-function triggerAlicat(customText) {
-  const trigger = document.getElementById('alicat-btn-trigger');
-  if (trigger) trigger.click();
-  const input = document.getElementById('alicat-input');
-  if (input && customText) {
-    input.value = customText;
+// 7. FUNCIONES DEL CHATBOT ALICAT (100% INLINE Y NATIVO)
+let isAlicatChatOpen = false;
+
+function toggleAlicatChat(force) {
+  isAlicatChatOpen = force !== undefined ? force : !isAlicatChatOpen;
+  const win = document.getElementById('alicat-window');
+  if (win) {
+    win.style.display = isAlicatChatOpen ? 'flex' : 'none';
+    if (isAlicatChatOpen) {
+      setTimeout(() => {
+        const inp = document.getElementById('alicat-input');
+        if (inp) inp.focus();
+      }, 100);
+    }
   }
+}
+
+function triggerAlicat(customText) {
+  toggleAlicatChat(true);
+  if (customText) {
+    askAlicat(customText);
+  }
+}
+
+function askAlicat(text) {
+  toggleAlicatChat(true);
+  appendAlicatMessage('user', text);
+  respondAlicat(text);
+}
+
+function handleAlicatSubmit(e) {
+  e.preventDefault();
+  const input = document.getElementById('alicat-input');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  appendAlicatMessage('user', text);
+  respondAlicat(text);
+}
+
+function appendAlicatMessage(role, text) {
+  const body = document.getElementById('alicat-body');
+  const div = document.createElement('div');
+  div.className = 'alicat-bubble ' + (role === 'user' ? 'alicat-bubble-user' : 'alicat-bubble-asst');
+  div.innerHTML = text.replace(/\n/g, '<br>');
+  body.appendChild(div);
+  body.scrollTop = body.scrollHeight;
+}
+
+function respondAlicat(query) {
+  const q = query.toLowerCase();
+  
+  // Indicador de escribiendo
+  appendAlicatMessage('assistant', '<i>🐱 Alicat está pensando...</i>');
+  const body = document.getElementById('alicat-body');
+  const loadingBubble = body.lastElementChild;
+  
+  setTimeout(() => {
+    let reply = '';
+    
+    if (q.includes('kit') || q.includes('decoracion') || q.includes('decoración')) {
+      reply = '¡Miau! 🧁 Nuestro <b>Kit de decoración básico</b> cuesta <b>$18,50</b> e incluye boquillas estrella 1M y 2D, mangas reutilizables y desechables, acople doble y espátula de codo. Es el más pedido para empezar con pie derecho en repostería. ¿Deseas agregarlo a tu carrito?';
+    } else if (q.includes('envio') || q.includes('envío') || q.includes('maracaibo') || q.includes('valencia') || q.includes('caracas') || q.includes('barquisimeto') || q.includes('venezuela')) {
+      reply = '¡Sí! 🚚 Hacemos <b>envíos a toda Venezuela</b> a través de <b>MRW, Zoom, Tealca y Domesa</b>. Embalamos cada molde, caja e insumo con máxima protección para que te llegue perfecto a tu ciudad.';
+    } else if (q.includes('pago') || q.includes('cashea') || q.includes('pago movil') || q.includes('pago móvil') || q.includes('binance') || q.includes('usdt')) {
+      reply = 'Aceptamos los métodos más cómodos de Venezuela 💳:<br>• <b>Cashea</b> (¡compra y paga en cuotas sin interés!)<br>• <b>Pago Móvil</b> (a tasa oficial BCV)<br>• <b>Binance Pay / USDT</b><br>• Transferencias bancarias nacionales<br>• Divisas en efectivo o Zelle.';
+    } else if (q.includes('hunde') || q.includes('baja') || q.includes('bizcocho') || q.includes('centro') || q.includes('torta')) {
+      reply = '¡Tranquil@, es un error muy común! 🎂 Los 3 motivos principales por los que se hunde un bizcocho son:<br>1. <b>Abrir el horno antes de los primeros 25-30 minutos</b> (la corriente de aire frío colapsa el vapor).<br>2. <b>Exceso de polvo de hornear</b> (sube muy rápido y luego no tiene estructura).<br>3. <b>Batir de más la harina</b> (desarrolla gluten denso).<br>💡 Tip de Alicat: Hornea siempre a 170°C-180°C precalentado y usa molde desmontable.';
+    } else if (q.includes('molde') || q.includes('20') || q.includes('porciones')) {
+      reply = 'Nuestro <b>Molde desmontable de 20 cm</b> cuesta solo <b>$9,80</b> 🍰. Es de acero al carbono antiadherente y rinde idealmente para <b>12 a 15 porciones generosas</b>. Es la medida estándar más vendida para cumpleaños.';
+    } else if (q.includes('colorante') || q.includes('gel')) {
+      reply = '🎨 Nuestro <b>Set de colorantes en gel (8 colores)</b> cuesta <b>$14,90</b>. Tienen alta pigmentación y no alteran la textura ni amargan tu buttercream o merengue.';
+    } else if (q.includes('caja') || q.includes('packaging')) {
+      reply = '🎁 Las <b>Cajas para torta 20 cm con ventana</b> cuestan <b>$2,50</b> c/u. Son de cartón sulfatado firme para que tus entregas se vean profesionales y elegantes.';
+    } else if (q.includes('curso') || q.includes('aprender') || q.includes('taller')) {
+      reply = '🎓 En nuestra <b>Academia de Repostería Alicar</b> tenemos cursos online y presenciales con certificado. Aprenderás masas esponjosas, rellenos firmes, decoración moderna y cómo costear para vender. ¡Pulsa el botón de Cursos para más detalles!';
+    } else {
+      reply = '¡Miau! Con mucho gusto te asesoro 💗 En <b>Alicar Tienda</b> tenemos todo para hacer, aprender y emprender en repostería: insumos, boquillas, colorantes, moldes desmontables, packaging y cursos.<br><br>¿Buscas algún producto en especial o deseas armar un presupuesto para tu pedido?';
+    }
+    
+    loadingBubble.innerHTML = reply;
+    body.scrollTop = body.scrollHeight;
+  }, 400);
 }
 </script>
 </body>
