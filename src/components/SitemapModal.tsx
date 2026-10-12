@@ -12,7 +12,7 @@ export const SitemapModal: React.FC<SitemapModalProps> = ({ isOpen, onClose }) =
 
   const links = [
     { title: 'Inicio / Portada Principal', url: '#inicio', desc: 'Presentación, lema, llamada a la acción y mascota guía.' },
-    { title: 'Historia de Alida a Yanacari & Valores', url: '#historia', desc: 'Orígenes en los años 80 en Santa Rita (Maracay), misión, visión y valores de la familia.' },
+    { title: 'Historia, Misión, Visión & Valores', url: '#historia', desc: 'Nuestra historia en Santa Rita (Maracay), misión, visión y valores artesanales de Yanacari.' },
     { title: 'Servicios de Repostería', url: '#servicios', desc: 'Tortas de boda, pasteles temáticos, gelatinas 3D, pasapalos gourmet y mesas de dulces.' },
     { title: 'Galería Interactiva & Muestrario', url: '#galeria', desc: 'Carrusel 3D con fotos de alta resolución, filtros por categoría y visor ampliado.' },
     { title: 'Kits para Emprendedores & Cursos', url: '#cursos-kits', desc: 'Capacitación presencial en Maracay y sets de herramientas con enlace directo a WhatsApp.' },

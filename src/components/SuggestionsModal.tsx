@@ -22,14 +22,18 @@ export const SuggestionsModal: React.FC<SuggestionsModalProps> = ({ isOpen, onCl
     playMechanicalClick('click');
     setEnviado(true);
 
-    // Also offer WhatsApp direct prefill
-    const textEncoded = encodeURIComponent(
-      `Hola Yanacari, te dejo una ${tipo}: "${comentario}" - De parte de: ${nombre || 'Un cliente amigo'}`
-    );
-    setTimeout(() => {
-      window.open(`${BUSINESS_INFO.whatsappUrl}?text=${textEncoded}`, '_blank');
-    }, 1200);
+    try {
+      const saved = JSON.parse(localStorage.getItem('alicar_sugerencias') || '[]');
+      saved.unshift({ nombre, comentario, tipo, fecha: new Date().toISOString() });
+      localStorage.setItem('alicar_sugerencias', JSON.stringify(saved));
+    } catch {
+      // ignore
+    }
   };
+
+  const whatsappHref = `${BUSINESS_INFO.whatsappUrl}?text=${encodeURIComponent(
+    `Hola Yanacari, te dejo una ${tipo}: "${comentario}" - De parte de: ${nombre || 'Un cliente amigo'}`
+  )}`;
 
   return (
     <div
@@ -65,7 +69,17 @@ export const SuggestionsModal: React.FC<SuggestionsModalProps> = ({ isOpen, onCl
             <p className="text-xs sm:text-sm text-[#5D4A40] max-w-sm mx-auto leading-relaxed">
               En Tortas Alicar valoramos cada opinión familiar. Tu sugerencia nos ayuda a seguir perfeccionando nuestras recetas y atención.
             </p>
-            <div className="pt-4">
+            <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
+              <a
+                href={whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => playMechanicalClick('click')}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#25D366] text-white text-xs font-semibold hover:bg-[#20BA5A] transition-colors cursor-pointer"
+              >
+                <MessageCircle className="w-4 h-4" />
+                <span>Enviar también por WhatsApp</span>
+              </a>
               <button
                 onClick={onClose}
                 className="px-6 py-2.5 rounded-full bg-[#C35C1D] text-white text-xs font-semibold hover:bg-[#A94B12] transition-colors cursor-pointer"

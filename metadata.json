@@ -1,6 +1,6 @@
 {
   "name": "Tortas Alicar - Repostería Tradicional y Artística",
-  "description": "Plataforma de exhibición de servicios de repostería artesanal, tortas de celebración, gelatinas y decoraciones en Maracay, Venezuela. Tradición familiar desde los años 80.",
+  "description": "Plataforma de exhibición de servicios de repostería artesanal, tortas de celebración, gelatinas y decoraciones en Maracay, Venezuela. Dulzura y pastelería hecha con cariño por Yanacari.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

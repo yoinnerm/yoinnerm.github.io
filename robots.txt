@@ -1,0 +1,6 @@
+# Robots.txt for Tortas Alicar
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://yoinnerm.github.io/sitemap.xml

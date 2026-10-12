@@ -23,7 +23,7 @@ export const MascotAvatar: React.FC<MascotAvatarProps> = ({
       title="Alicat - Mascota Guía de Tortas Alicar"
     >
       <img
-        src="/images/alicat.png"
+        src="./images/alicat.png"
         alt="Alicat - Mascota Repostera de Tortas Alicar"
         className="w-full h-full object-contain drop-shadow-md rounded-full pointer-events-none"
       />

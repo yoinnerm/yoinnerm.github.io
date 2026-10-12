@@ -29,7 +29,7 @@ export const SERVICES_LIST: ServiceItem[] = [
     description: 'Pasteles de pisos con estructura reforzada, cubiertas en buttercream suave, flores modeladas y detalles elegantes.',
     features: ['Estructuras de varios niveles', 'Rellenos caseros (ganache, arequipe, crema diplomática)', 'Detalles florales y toques dorados'],
     idealFor: 'Bodas, 15 años y aniversarios.',
-    image: '/images/wedding-cake.jpg',
+    image: './images/wedding-cake.jpg',
   },
   {
     id: 'tortas-tematicas',
@@ -38,7 +38,7 @@ export const SERVICES_LIST: ServiceItem[] = [
     description: 'Diseños con los motivos y personajes favoritos de tus pequeños, cuidando tanto la presentación como el sabor del bizcocho.',
     features: ['Modelados temáticos y papel de azúcar', 'Bizcochos esponjosos de vainilla y marmoleada', 'Diseño personalizado a tu gusto'],
     idealFor: 'Cumpleaños infantiles y celebraciones familiares.',
-    image: '/images/cumpleanos-floral.jpg',
+    image: './images/cumpleanos-floral.jpg',
   },
   {
     id: 'gelatinas-artisticas',
@@ -47,7 +47,7 @@ export const SERVICES_LIST: ServiceItem[] = [
     description: 'Nuestra especialidad más querida: cúpulas translúcidas con flores inyectadas a mano pétalo a pétalo sobre base cremosa.',
     features: ['Inyección manual con aguja repostera', 'Sabores frutales refrescantes', 'Base suave de leche condensada'],
     idealFor: 'Centros de mesa dulces y reuniones especiales.',
-    image: '/images/artistic-gelatina.jpg',
+    image: './images/artistic-gelatina.jpg',
   },
   {
     id: 'pasapalos-catering',
@@ -56,7 +56,7 @@ export const SERVICES_LIST: ServiceItem[] = [
     description: 'Tequeños de hojaldre crocantes con queso blanco fresco, tartaletas de crema y frutas, mini alfajores y brownies.',
     features: ['Tequeños crujientes de hojaldre', 'Tartaletas con crema pastelera y fruta', 'Brownies melcochudos de chocolate'],
     idealFor: 'Reuniones familiares, eventos y agasajos.',
-    image: '/images/party-pasapalos.jpg',
+    image: './images/party-pasapalos.jpg',
   },
   {
     id: 'cupcakes-galletas',
@@ -65,7 +65,7 @@ export const SERVICES_LIST: ServiceItem[] = [
     description: 'Bocados individuales preparados con glaseado real y detalles a juego con la decoración de tu evento.',
     features: ['Galletas de mantequilla con glaseado real', 'Cupcakes decorados con manga', 'Colores adaptados a tu celebración'],
     idealFor: 'Recuerdos de comunión, bautizos y mesas de postres.',
-    image: '/images/artisan-cupcakes.jpg',
+    image: './images/artisan-cupcakes.jpg',
   },
   {
     id: 'mesas-decoracion',
@@ -74,7 +74,7 @@ export const SERVICES_LIST: ServiceItem[] = [
     description: 'Asesoría en la distribución estética de tus postres, pedestales y alturas para que tu mesa luzca impecable en las fotos.',
     features: ['Armonía de colores y pedestales', 'Distribución equilibrada de bocados', 'Asesoría con Yanacari'],
     idealFor: 'Eventos donde buscas una presentación cuidada.',
-    image: '/images/celebration-decor.jpg',
+    image: './images/celebration-decor.jpg',
   },
 ];
 
@@ -86,7 +86,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     categoryLabel: 'Tortas & Pasteles',
     description: 'Bizcocho húmedo de chocolate, abundante chantilly, virutas de chocolate y cerezas marrasquino.',
     details: 'Receta tradicional de la casa con virutas de chocolate negro y rosetones de crema fresca.',
-    image: '/images/selva-negra.jpg',
+    image: './images/selva-negra.jpg',
     tags: ['Selva Negra', 'Cerezas', 'Chocolate'],
   },
   {
@@ -96,7 +96,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     categoryLabel: 'Celebración',
     description: 'Pastel en crema blanca con técnica de espátula en tonos lila, perlas doradas y vela decorativa.',
     details: 'Acabado moderno y delicado elaborado a mano en nuestro taller de Santa Rita.',
-    image: '/images/cumpleanos-floral.jpg',
+    image: './images/cumpleanos-floral.jpg',
     tags: ['Cumpleaños', 'Floral', 'Elegante'],
   },
   {
@@ -106,7 +106,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     categoryLabel: 'Bodas & 15 Años',
     description: 'Pastel texturizado con flores comestibles en tono melocotón y detalles sutiles en pan de oro.',
     details: 'Bizcocho húmedo de vainilla y almendras relleno de dulce de leche casero.',
-    image: '/images/wedding-cake.jpg',
+    image: './images/wedding-cake.jpg',
     tags: ['Bodas', 'Elegante', '3 Pisos'],
   },
   {
@@ -116,7 +116,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     categoryLabel: 'Gelatinas 3D',
     description: 'Cúpula translúcida con flores inyectadas a mano sobre base de leche condensada.',
     details: 'Técnica artesanal de inyección con aguja. Sabor frutal suave.',
-    image: '/images/artistic-gelatina.jpg',
+    image: './images/artistic-gelatina.jpg',
     tags: ['Gelatina 3D', 'Floral', 'Artesanal'],
   },
   {
@@ -126,7 +126,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     categoryLabel: 'Pasapalos',
     description: 'Tequeños de hojaldre, mini tartaletas de fruta, alfajores de coco y brownies.',
     details: 'Horneados para el mismo día de la celebración.',
-    image: '/images/party-pasapalos.jpg',
+    image: './images/party-pasapalos.jpg',
     tags: ['Pasapalos', 'Tequeños', 'Tartaletas'],
   },
   {
@@ -136,7 +136,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     categoryLabel: 'Tortas & Pasteles',
     description: 'Bizcocho intenso de chocolate con ganache y frutas frescas en la cubierta.',
     details: 'Relleno cremoso y cobertura brillante de chocolate.',
-    image: '/images/chocolate-torta.jpg',
+    image: './images/chocolate-torta.jpg',
     tags: ['Chocolate', 'Ganache', 'Fresas'],
   },
   {
@@ -146,7 +146,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     categoryLabel: 'Mesas Dulces',
     description: 'Exhibición de pedestales de cristal, macarons, copitas y pastel principal.',
     details: 'Distribución armoniosa para recepciones familiares.',
-    image: '/images/celebration-decor.jpg',
+    image: './images/celebration-decor.jpg',
     tags: ['Mesa Dulce', 'Decoración'],
   },
   {
@@ -156,7 +156,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     categoryLabel: 'Galletas & Cupcakes',
     description: 'Cupcakes con rosetones de crema y galletas decoradas con glaseado real.',
     details: 'Galletas de mantequilla crocante con vainilla y detalles perlados.',
-    image: '/images/artisan-cupcakes.jpg',
+    image: './images/artisan-cupcakes.jpg',
     tags: ['Cupcakes', 'Galletas', 'Recuerdos'],
   },
 ];

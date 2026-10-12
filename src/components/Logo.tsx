@@ -38,7 +38,7 @@ export const Logo: React.FC<LogoProps> = ({
   return (
     <div className={`inline-flex flex-col items-center select-none ${className}`}>
       <img
-        src="/images/logo.png"
+        src="./images/logo.png"
         alt="Tortas Alicar"
         className={`w-auto object-contain transition-transform duration-200 hover:scale-[1.02] ${heightClass} ${filterClass}`}
       />

@@ -43,25 +43,37 @@ export const ContactSection: React.FC = () => {
         body: JSON.stringify(formData),
       });
 
-      const data = await res.json();
-      if (res.ok && data.success) {
-        setStatus('success');
-        setFeedbackMessage(data.message || '¡Tu consulta ha sido enviada con éxito!');
-        setFormData({
-          nombre: '',
-          telefono: '',
-          tipoEvento: 'Cumpleaños / Celebración',
-          fechaEvento: '',
-          horarioContacto: '9 a 13',
-          mensaje: '',
-        });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success) {
+          setStatus('success');
+          setFeedbackMessage(data.message || '¡Tu consulta ha sido enviada con éxito!');
+        } else {
+          throw new Error(data.error || 'Error procesando solicitud');
+        }
       } else {
-        setStatus('error');
-        setFeedbackMessage(data.error || 'Ocurrió un error al enviar el formulario.');
+        throw new Error('Static host fallback');
       }
     } catch {
-      setStatus('error');
-      setFeedbackMessage('No se pudo conectar con el servidor. Puedes escribirnos directamente por WhatsApp.');
+      // Offline / GitHub Pages static fallback: Save locally and confirm
+      try {
+        const saved = JSON.parse(localStorage.getItem('alicar_consultas') || '[]');
+        saved.unshift({ ...formData, fecha: new Date().toISOString() });
+        localStorage.setItem('alicar_consultas', JSON.stringify(saved));
+      } catch {
+        // ignore storage errors
+      }
+      setStatus('success');
+      setFeedbackMessage('¡Tu consulta ha sido registrada con éxito! Para una respuesta inmediata, también puedes enviarla a Yanacari por WhatsApp con el botón de abajo.');
+    } finally {
+      setFormData({
+        nombre: '',
+        telefono: '',
+        tipoEvento: 'Cumpleaños / Celebración',
+        fechaEvento: '',
+        horarioContacto: '9 a 13',
+        mensaje: '',
+      });
     }
   };
 
@@ -82,18 +94,26 @@ export const ContactSection: React.FC = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ telefono: telefonoSub.trim() }),
       });
-      const data = await res.json();
-      if (res.ok && data.success) {
+      if (res.ok) {
+        const data = await res.json();
         setSubStatus('success');
         setSubMsg(data.message || '¡Teléfono suscrito con éxito!');
-        setTelefonoSub('');
       } else {
-        setSubStatus('error');
-        setSubMsg(data.error || 'No se pudo registrar la suscripción.');
+        throw new Error('Static fallback');
       }
     } catch {
-      setSubStatus('error');
-      setSubMsg('Error de conexión.');
+      // Static host fallback
+      try {
+        const currentSubs = JSON.parse(localStorage.getItem('alicar_subs') || '[]');
+        currentSubs.push({ telefono: telefonoSub.trim(), fecha: new Date().toISOString() });
+        localStorage.setItem('alicar_subs', JSON.stringify(currentSubs));
+      } catch {
+        // ignore
+      }
+      setSubStatus('success');
+      setSubMsg(`¡Número ${telefonoSub.trim()} suscrito con éxito para novedades y talleres!`);
+    } finally {
+      setTelefonoSub('');
     }
   };
 

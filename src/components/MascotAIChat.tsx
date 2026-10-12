@@ -10,6 +10,35 @@ interface MascotAIChatProps {
   onToggle: () => void;
 }
 
+function getClientFallbackAnswer(question: string): string {
+  const q = question.toLowerCase();
+  if (q.includes('nombre') || q.includes('quien eres') || q.includes('como te llamas')) {
+    return '¡Hola! Me llamo Alicat y soy la mascota repostera de Tortas Alicar. Mi rol es exclusivamente orientarte con información sobre nuestras creaciones y servicios.';
+  }
+  if (q.includes('precio') || q.includes('costo') || q.includes('cuanto') || q.includes('cotiz') || q.includes('presupuesto')) {
+    return 'En Tortas Alicar cada pedido se elabora a medida según la cantidad de porciones, bizcocho, relleno y diseño. Por eso no manejamos precios fijos en la página. Escríbele a Yanacari directamente por WhatsApp (+58 414 461 7554) para darte un presupuesto exacto.';
+  }
+  if (q.includes('donde') || q.includes('ubicac') || q.includes('direccion') || q.includes('maracay') || q.includes('santa rita')) {
+    return 'Estamos ubicados en el Barrio Santa Rita en Maracay, Estado Aragua. Puedes consultar nuestra ubicación exacta en Google Maps mediante el enlace directo en la página.';
+  }
+  if (q.includes('curso') || q.includes('taller') || q.includes('kit') || q.includes('emprend')) {
+    return 'Ofrecemos cursos prácticos de repostería con Yanacari y kits con herramientas seleccionadas para emprendedores. En la sección "Nuestra Historia & Legales" puedes pulsar "Información" para escribirnos por WhatsApp.';
+  }
+  if (q.includes('gelatina') || q.includes('3d') || q.includes('encapsulada')) {
+    return 'Nuestras gelatinas artísticas 3D encapsuladas son flores inyectadas a mano sobre una cúpula translúcida con base cremosa. ¡Son un centro de mesa dulce espectacular!';
+  }
+  if (q.includes('pasapalo') || q.includes('tequeño') || q.includes('salado') || q.includes('catering')) {
+    return 'Preparamos tequeños de hojaldre crujientes con queso blanco, mini tartaletas de crema pastelera y fruta, mini alfajores y brownies melcochudos.';
+  }
+  if (q.includes('sabor') || q.includes('torta') || q.includes('pastel') || q.includes('relleno')) {
+    return 'Elaboramos bizcochos de vainilla tradicional, chocolate húmedo, marmoleada, selva negra y tres leches, con rellenos caseros de ganache, arequipe o crema diplomática.';
+  }
+  if (q.includes('horario') || q.includes('hora') || q.includes('contacto')) {
+    return 'Atendemos con gusto en dos horarios: de 9:00 a 13:00 (mañanas) y de 14:00 a 20:00 (tardes). Puedes escribirnos al WhatsApp +58 414 461 7554.';
+  }
+  return '¡Hola! Soy Alicat. Estoy aquí para orientarte sobre las creaciones de Tortas Alicar, cursos en Santa Rita y cómo comunicarte con Yanacari por WhatsApp (+58 414 461 7554). ¿Tienes alguna duda sobre nuestras tortas, gelatinas o pasapalos?';
+}
+
 export const MascotAIChat: React.FC<MascotAIChatProps> = ({ isOpen, onToggle }) => {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
@@ -59,23 +88,26 @@ export const MascotAIChat: React.FC<MascotAIChatProps> = ({ isOpen, onToggle }) 
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: query.trim() }),
       });
-      const data = await res.json();
-
+      if (res.ok) {
+        const data = await res.json();
+        const botMsg: ChatMessage = {
+          id: (Date.now() + 1).toString(),
+          sender: 'mascot',
+          text: data.reply || getClientFallbackAnswer(query),
+          timestamp: new Date().toLocaleTimeString('es-VE', { hour: '2-digit', minute: '2-digit' }),
+        };
+        setMessages((prev) => [...prev, botMsg]);
+      } else {
+        throw new Error('Fallback to local');
+      }
+    } catch {
       const botMsg: ChatMessage = {
         id: (Date.now() + 1).toString(),
         sender: 'mascot',
-        text: data.reply || 'Estoy aquí para orientarte. Para pedidos y presupuestos puedes contactar a Yanacari en WhatsApp (+58 414 461 7554).',
+        text: getClientFallbackAnswer(query),
         timestamp: new Date().toLocaleTimeString('es-VE', { hour: '2-digit', minute: '2-digit' }),
       };
       setMessages((prev) => [...prev, botMsg]);
-    } catch {
-      const errorMsg: ChatMessage = {
-        id: (Date.now() + 1).toString(),
-        sender: 'mascot',
-        text: 'En Tortas Alicar cada pedido es personalizado. Puedes escribir directamente a Yanacari por WhatsApp (+58 414 461 7554).',
-        timestamp: new Date().toLocaleTimeString('es-VE', { hour: '2-digit', minute: '2-digit' }),
-      };
-      setMessages((prev) => [...prev, errorMsg]);
     } finally {
       setIsLoading(false);
     }
