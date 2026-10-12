@@ -1,6 +1,6 @@
 import React from 'react';
-import { playMechanicalClick } from '../utils/sound';
-import { X, Network, ExternalLink, FileCode, CheckCircle2 } from 'lucide-react';
+import { X, ExternalLink, MapPin } from 'lucide-react';
+import { BUSINESS_INFO } from '../data/content';
 
 interface SitemapModalProps {
   isOpen: boolean;
@@ -10,115 +10,69 @@ interface SitemapModalProps {
 export const SitemapModal: React.FC<SitemapModalProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
-  const links = [
-    { title: 'Inicio / Portada Principal', url: '#inicio', desc: 'Presentación, lema, llamada a la acción y mascota guía.' },
+  const siteLinks = [
+    { title: 'Inicio / Portada Principal', url: '#inicio', desc: 'Presentación, lema y llamada a la acción para pedidos.' },
+    { title: 'Galería & Muestrario de Creaciones', url: '#galeria', desc: 'Fotos reales de tortas de bodas, 15 años, infantiles, gelatinas 3D y pasapalos.' },
+    { title: 'Servicios Artesanales', url: '#servicios', desc: 'Pasteles de pisos, gelatinas artísticas, mesas dulces y catering salado en Maracay.' },
+    { title: 'Reseñas & Opiniones de Clientes', url: '#testimonios', desc: 'Calificación 5 estrellas en Google Maps y experiencias de clientes.' },
     { title: 'Historia, Misión, Visión & Valores', url: '#historia', desc: 'Nuestra historia en Santa Rita (Maracay), misión, visión y valores artesanales de Yanacari.' },
-    { title: 'Servicios de Repostería', url: '#servicios', desc: 'Tortas de boda, pasteles temáticos, gelatinas 3D, pasapalos gourmet y mesas de dulces.' },
-    { title: 'Galería Interactiva & Muestrario', url: '#galeria', desc: 'Carrusel 3D con fotos de alta resolución, filtros por categoría y visor ampliado.' },
-    { title: 'Kits para Emprendedores & Cursos', url: '#cursos-kits', desc: 'Capacitación presencial en Maracay y sets de herramientas con enlace directo a WhatsApp.' },
-    { title: 'Reseñas & Google Maps', url: '#testimonios', desc: 'Opiniones reales de 5 estrellas verificadas en Google Maps y preguntas frecuentes.' },
-    { title: 'Formulario de Contacto & Horarios', url: '#contacto', desc: 'Solicitud de presupuestos en horarios 9 a 13 o 14 a 20 con guardado en forms.' },
+    { title: 'Cursos & Kits para Emprendedores', url: '#cursos', desc: 'Talleres de repostería y kits prácticos para iniciar en Maracay.' },
+    { title: 'Contacto & Encargos Directos', url: '#contacto', desc: 'Formulario de contacto, horario de atención y WhatsApp directo.' },
+    { title: 'Ubicación en Google Maps', url: BUSINESS_INFO.mapsUrl, desc: 'Ficha verificada en Google Maps para llegar a Santa Rita, Maracay.' },
   ];
 
   return (
-    <div
-      className="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200"
-      onClick={onClose}
-    >
-      <div
-        className="bg-[#FFFDFB] rounded-3xl max-w-2xl w-full p-6 sm:p-8 border border-[#EBDCD0] shadow-2xl relative max-h-[85vh] flex flex-col"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="flex items-center justify-between pb-4 border-b border-[#F0E4DA]">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#C35C1D]/10 text-[#C35C1D] flex items-center justify-center">
-              <Network className="w-5 h-5" />
+    <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
+      <div className="bg-white rounded-3xl max-w-2xl w-full max-h-[85vh] flex flex-col relative shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+        {/* Header */}
+        <div className="p-6 border-b border-[#F0E6DE] flex items-center justify-between">
+          <div>
+            <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-[#FAF0E6] text-[#8C461E] text-xs font-semibold mb-1">
+              <MapPin className="w-3.5 h-3.5 text-[#C35C1D]" />
+              <span>Estructura de la Plataforma</span>
             </div>
-            <div>
-              <h3 className="text-xl font-serif font-bold text-[#2A1F1B]">
-                Mapa del Sitio &amp; Estructura de Indexación
-              </h3>
-              <p className="text-xs text-[#7A6153]">
-                Optimizado para motores de búsqueda, Google Ads y navegación rápida
-              </p>
-            </div>
+            <h3 className="text-xl font-serif font-bold text-[#2A1F1B]">
+              Mapa del Sitio &amp; Detalles de Indexación
+            </h3>
           </div>
-
           <button
-            onClick={() => {
-              playMechanicalClick('pop');
-              onClose();
-            }}
-            className="p-2 rounded-full text-[#7A6153] hover:bg-[#F2E5DB] transition-colors cursor-pointer"
+            onClick={onClose}
+            className="text-[#8C6D5B] hover:text-[#2A1F1B] p-1.5 rounded-full hover:bg-[#F7EFE9] cursor-pointer"
+            aria-label="Cerrar modal"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Links list */}
-        <div className="py-4 overflow-y-auto space-y-3 flex-1">
-          {links.map((link, idx) => (
-            <a
-              key={idx}
-              href={link.url}
-              onClick={() => {
-                playMechanicalClick('click');
-                onClose();
-              }}
-              className="block p-3.5 rounded-2xl bg-[#FAF7F3] hover:bg-[#F5ECE3] border border-[#EFE3D7] transition-all group"
-            >
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-bold text-[#2A1F1B] group-hover:text-[#C35C1D] transition-colors">
-                  {link.title}
-                </span>
-                <span className="text-xs text-[#C35C1D] opacity-0 group-hover:opacity-100 transition-opacity">
-                  Ir &rarr;
-                </span>
-              </div>
-              <p className="text-xs text-[#6A574C] mt-1">{link.desc}</p>
-            </a>
-          ))}
+        {/* Content list */}
+        <div className="p-6 overflow-y-auto space-y-4">
+          <p className="text-xs text-[#6B574C] leading-relaxed">
+            Esta estructura optimizada para motores de búsqueda (Google Search y Google Maps) garantiza que los clientes encuentren rápidamente las especialidades de repostería en Maracay.
+          </p>
 
-          {/* Technical SEO Files */}
-          <div className="pt-2 border-t border-[#F2E4D8] grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-            <a
-              href="/sitemap.xml"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 rounded-xl bg-white border border-[#E0D0C4] flex items-center justify-between text-[#4F3C32] hover:text-[#C35C1D]"
-            >
-              <div className="flex items-center gap-2">
-                <FileCode className="w-4 h-4 text-[#C35C1D]" />
-                <span className="font-semibold">sitemap.xml (XML Sitemap)</span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+            {siteLinks.map((link, idx) => (
+              <div
+                key={idx}
+                className="p-3.5 rounded-2xl bg-[#FFFDFB] border border-[#EBDCD0] hover:border-[#C35C1D] transition-colors"
+              >
+                <div className="flex items-center justify-between">
+                  <h4 className="text-xs font-bold text-[#2A1F1B]">{link.title}</h4>
+                  <ExternalLink className="w-3 h-3 text-[#A89182]" />
+                </div>
+                <p className="text-[11px] text-[#7A6153] mt-1 leading-snug">{link.desc}</p>
               </div>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </a>
-
-            <a
-              href="/robots.txt"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 rounded-xl bg-white border border-[#E0D0C4] flex items-center justify-between text-[#4F3C32] hover:text-[#C35C1D]"
-            >
-              <div className="flex items-center gap-2">
-                <FileCode className="w-4 h-4 text-[#507C5D]" />
-                <span className="font-semibold">robots.txt</span>
-              </div>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </a>
+            ))}
           </div>
         </div>
 
-        <div className="pt-3 border-t border-[#F0E4DA] flex items-center justify-between text-xs text-[#8C7164]">
-          <div className="flex items-center gap-1.5">
-            <CheckCircle2 className="w-4 h-4 text-[#507C5D]" />
-            <span>Indexación Schema.org y OpenGraph configurada</span>
-          </div>
+        {/* Footer */}
+        <div className="p-4 bg-[#FAF7F2] border-t border-[#F0E6DE] flex justify-end rounded-b-3xl">
           <button
             onClick={onClose}
-            className="px-4 py-1.5 rounded-full bg-[#C35C1D] text-white font-semibold text-xs hover:bg-[#A94B12]"
+            className="px-5 py-2 rounded-full bg-[#C35C1D] text-white text-xs font-semibold hover:bg-[#A94B12] transition-colors cursor-pointer"
           >
-            Cerrar
+            Entendido
           </button>
         </div>
       </div>

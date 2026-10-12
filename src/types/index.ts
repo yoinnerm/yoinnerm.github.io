@@ -1,11 +1,26 @@
-export interface ServiceItem {
-  id: string;
-  title: string;
-  category: string;
-  description: string;
-  features: string[];
-  idealFor: string;
-  image: string;
+export interface BusinessInfo {
+  name: string;
+  tagline: string;
+  phone: string;
+  email: string;
+  address: string;
+  city: string;
+  state: string;
+  country: string;
+  postalCode: string;
+  mapsUrl: string;
+  whatsappUrl: string;
+  whatsappDisplay: string;
+  hours: {
+    weekdays: string;
+    saturday: string;
+    sunday: string;
+  };
+  socials: {
+    instagram: string;
+    tiktok: string;
+    facebook: string;
+  };
 }
 
 export interface GalleryItem {
@@ -13,36 +28,35 @@ export interface GalleryItem {
   title: string;
   category: 'bodas' | 'infantiles' | 'gelatinas' | 'pasapalos' | 'galletas';
   categoryLabel: string;
-  description: string;
-  details: string;
   image: string;
-  tags: string[];
+  description: string;
+  details?: string;
+  portions?: string;
+  occasion?: string;
+  tags?: string[];
 }
 
-export interface Testimonial {
+export interface ServiceItem {
+  id: string;
+  title: string;
+  category: string;
+  image: string;
+  description: string;
+  features: string[];
+  idealFor: string;
+}
+
+export interface ReviewItem {
   id: string;
   author: string;
-  location: string;
-  event: string;
-  quote: string;
   rating: number;
   date: string;
+  location: string;
+  quote: string;
+  event?: string;
 }
 
-export interface ContactSubmission {
-  id?: string;
-  nombre: string;
-  telefono: string;
-  tipoEvento: string;
-  fechaEvento: string;
-  horarioContacto: '9 a 13' | '14 a 20';
-  mensaje: string;
-  fechaRegistro?: string;
-}
-
-export interface ChatMessage {
-  id: string;
-  sender: 'user' | 'mascot';
-  text: string;
-  timestamp: string;
+export interface FaqItem {
+  question: string;
+  answer: string;
 }

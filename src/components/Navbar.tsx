@@ -1,33 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Logo } from './Logo';
-import { playMechanicalClick, toggleSound, isSoundEnabled } from '../utils/sound';
 import { BUSINESS_INFO } from '../data/content';
-import { Volume2, VolumeX, Menu, X, MessageCircle, MapPin, Sparkles } from 'lucide-react';
+import { Menu, X, MessageCircle, MapPin } from 'lucide-react';
 
 export type ActiveSection = 'principal' | 'contacto' | 'nosotros';
 
 interface NavbarProps {
   activeSection: ActiveSection;
   onSectionChange: (sec: ActiveSection) => void;
-  onOpenAlicatChat: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   activeSection,
   onSectionChange,
-  onOpenAlicatChat,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [soundOn, setSoundOn] = useState(true);
-
-  useEffect(() => {
-    setSoundOn(isSoundEnabled());
-  }, []);
-
-  const handleSoundToggle = () => {
-    const newState = toggleSound();
-    setSoundOn(newState);
-  };
 
   const navSections = [
     { id: 'principal' as ActiveSection, label: 'Principal & Muestrario' },
@@ -36,7 +23,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   ];
 
   const handleSelectSection = (sec: ActiveSection) => {
-    playMechanicalClick('click');
     onSectionChange(sec);
     setMobileMenuOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -52,7 +38,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               href={BUSINESS_INFO.mapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => playMechanicalClick('pop')}
               className="inline-flex items-center gap-1 hover:text-[#C35C1D] transition-colors"
             >
               <MapPin className="w-3.5 h-3.5 text-[#C35C1D]" />
@@ -60,26 +45,15 @@ export const Navbar: React.FC<NavbarProps> = ({
             </a>
           </div>
 
-          <div className="flex items-center gap-4">
-            <button
-              onClick={() => {
-                playMechanicalClick('pop');
-                onOpenAlicatChat();
-              }}
-              className="inline-flex items-center gap-1 text-[#8C461E] hover:text-[#C35C1D] transition-colors cursor-pointer"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-[#E66E22]" />
-              <span>Guía con Alicat</span>
-            </button>
+          <div className="flex items-center gap-4 text-xs text-[#8C6D5B]">
+            <span>Atención personalizada por Yanacari</span>
             <span className="text-[#DAC8BC]">&bull;</span>
-            <button
-              onClick={handleSoundToggle}
-              className="inline-flex items-center gap-1 text-[11px] text-[#8C6D5B] hover:text-[#C35C1D] transition-colors cursor-pointer"
-              title={soundOn ? 'Desactivar sonido de teclas mecánicas' : 'Activar sonido de teclas mecánicas'}
+            <a
+              href={`mailto:${BUSINESS_INFO.email}`}
+              className="hover:text-[#C35C1D] transition-colors"
             >
-              {soundOn ? <Volume2 className="w-3.5 h-3.5 text-[#507C5D]" /> : <VolumeX className="w-3.5 h-3.5 text-[#9E9E9E]" />}
-              <span>{soundOn ? 'Sonido: Activo' : 'Silencio'}</span>
-            </button>
+              {BUSINESS_INFO.email}
+            </a>
           </div>
         </div>
 
@@ -117,7 +91,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               href={`${BUSINESS_INFO.whatsappUrl}?text=Hola%20Yanacari,%20quisiera%20pedir%20informaci%C3%B3n%20sobre%20sus%20tortas.`}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => playMechanicalClick('click')}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold text-white bg-[#25D366] hover:bg-[#20BA5A] shadow-xs hover:shadow-md transition-all cursor-pointer"
             >
               <MessageCircle className="w-4 h-4" />
@@ -128,18 +101,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Mobile hamburger menu */}
           <div className="flex md:hidden items-center gap-2">
             <button
-              onClick={handleSoundToggle}
-              className="p-1.5 rounded-full text-[#7A6255] hover:bg-[#F8EFEA]"
-              aria-label="Toggle sonido"
-            >
-              {soundOn ? <Volume2 className="w-4 h-4 text-[#507C5D]" /> : <VolumeX className="w-4 h-4 text-[#9E9E9E]" />}
-            </button>
-
-            <button
-              onClick={() => {
-                playMechanicalClick('pop');
-                setMobileMenuOpen(!mobileMenuOpen);
-              }}
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 rounded-lg text-[#3E3029] hover:bg-[#F8EFEA] cursor-pointer"
               aria-label="Abrir menú"
             >
@@ -151,7 +113,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#FFFDFB] border-b border-[#EBDCD2] px-4 pt-3 pb-5 shadow-xl animate-in slide-in-from-top-4 duration-200">
+        <div className="md:hidden bg-[#FFFDFB] border-b border-[#EBDCD2] px-4 pt-3 pb-5 shadow-xl">
           <div className="space-y-1.5 pb-3 border-b border-[#F0E4DA]">
             {navSections.map((sec) => (
               <button
@@ -168,23 +130,11 @@ export const Navbar: React.FC<NavbarProps> = ({
             ))}
           </div>
 
-          <div className="pt-3 space-y-2">
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onOpenAlicatChat();
-              }}
-              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold text-[#8C461E] bg-[#FFF2E8] border border-[#F6D8C4]"
-            >
-              <Sparkles className="w-4 h-4 text-[#E66E22]" />
-              <span>Preguntarle a Alicat</span>
-            </button>
-
+          <div className="pt-3">
             <a
               href={`${BUSINESS_INFO.whatsappUrl}?text=Hola%20Yanacari,%20deseo%20comunicarme%20por%20WhatsApp.`}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => playMechanicalClick('click')}
               className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold text-white bg-[#25D366]"
             >
               <MessageCircle className="w-4 h-4" />

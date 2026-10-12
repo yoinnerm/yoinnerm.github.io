@@ -1,4 +1,4 @@
-import { ServiceItem, GalleryItem, Testimonial } from '../types';
+import { ServiceItem, GalleryItem, ReviewItem } from '../types';
 
 export const BUSINESS_INFO = {
   name: 'Tortas Alicar',
@@ -9,7 +9,6 @@ export const BUSINESS_INFO = {
   whatsappDisplay: '+58 414 461 7554',
   whatsappUrl: 'https://wa.me/584144617554',
   email: 'alicartortas@gmail.com',
-  mascotName: 'Alicat',
   socials: {
     instagram: 'https://instagram.com/tortasalicar',
     tiktok: 'https://tiktok.com/@tortasalicar',
@@ -161,7 +160,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
   },
 ];
 
-export const REAL_REVIEWS: Testimonial[] = [
+export const REAL_REVIEWS: ReviewItem[] = [
   {
     id: 'rev-1',
     author: 'Agustin Bravo',

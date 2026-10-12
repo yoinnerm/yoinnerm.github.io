@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { BUSINESS_INFO } from '../data/content';
-import { playMechanicalClick } from '../utils/sound';
-import { MessageCircle, Mail, MapPin, Clock, Send, CheckCircle, ExternalLink, Calendar, Phone, User, AlertCircle, Sparkles } from 'lucide-react';
+import { MessageCircle, Mail, MapPin, Clock, Send, CheckCircle, Calendar, Phone, User, AlertCircle } from 'lucide-react';
 
 export const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -16,18 +15,12 @@ export const ContactSection: React.FC = () => {
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [feedbackMessage, setFeedbackMessage] = useState('');
 
-  // Telephone newsletter state
-  const [telefonoSub, setTelefonoSub] = useState('');
-  const [subStatus, setSubStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const [subMsg, setSubMsg] = useState('');
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    playMechanicalClick('click');
 
     if (!formData.nombre.trim() || !formData.telefono.trim()) {
       setStatus('error');
@@ -55,347 +48,190 @@ export const ContactSection: React.FC = () => {
         throw new Error('Static host fallback');
       }
     } catch {
-      // Offline / GitHub Pages static fallback: Save locally and confirm
+      // Offline o Static Host (GitHub Pages): Guardado local
       try {
         const saved = JSON.parse(localStorage.getItem('alicar_consultas') || '[]');
-        saved.unshift({ ...formData, fecha: new Date().toISOString() });
+        saved.unshift({
+          ...formData,
+          fecha: new Date().toISOString(),
+        });
         localStorage.setItem('alicar_consultas', JSON.stringify(saved));
       } catch {
-        // ignore storage errors
+        // Ignorar si localStorage no está disponible
       }
+
       setStatus('success');
-      setFeedbackMessage('¡Tu consulta ha sido registrada con éxito! Para una respuesta inmediata, también puedes enviarla a Yanacari por WhatsApp con el botón de abajo.');
-    } finally {
-      setFormData({
-        nombre: '',
-        telefono: '',
-        tipoEvento: 'Cumpleaños / Celebración',
-        fechaEvento: '',
-        horarioContacto: '9 a 13',
-        mensaje: '',
-      });
+      setFeedbackMessage(
+        '¡Gracias por tu mensaje! Hemos registrado tu solicitud. Para una respuesta inmediata, también puedes abrir WhatsApp con los datos ya listos.'
+      );
     }
   };
 
-  const handleSubscribe = async (e: React.FormEvent) => {
-    e.preventDefault();
-    playMechanicalClick('click');
-
-    if (!telefonoSub || telefonoSub.trim().length < 7) {
-      setSubStatus('error');
-      setSubMsg('Por favor ingresa un número de teléfono válido.');
-      return;
-    }
-
-    setSubStatus('loading');
-    try {
-      const res = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ telefono: telefonoSub.trim() }),
-      });
-      if (res.ok) {
-        const data = await res.json();
-        setSubStatus('success');
-        setSubMsg(data.message || '¡Teléfono suscrito con éxito!');
-      } else {
-        throw new Error('Static fallback');
-      }
-    } catch {
-      // Static host fallback
-      try {
-        const currentSubs = JSON.parse(localStorage.getItem('alicar_subs') || '[]');
-        currentSubs.push({ telefono: telefonoSub.trim(), fecha: new Date().toISOString() });
-        localStorage.setItem('alicar_subs', JSON.stringify(currentSubs));
-      } catch {
-        // ignore
-      }
-      setSubStatus('success');
-      setSubMsg(`¡Número ${telefonoSub.trim()} suscrito con éxito para novedades y talleres!`);
-    } finally {
-      setTelefonoSub('');
-    }
-  };
+  // WhatsApp prefilled URL
+  const whatsappPrefillUrl = `${BUSINESS_INFO.whatsappUrl}?text=${encodeURIComponent(
+    `Hola Yanacari, te escribo desde la página web de Tortas Alicar.
+Mi nombre: ${formData.nombre || 'Cliente'}
+Teléfono: ${formData.telefono || 'Por coordinar'}
+Evento: ${formData.tipoEvento}
+Fecha del evento: ${formData.fechaEvento || 'Por definir'}
+Horario preferido: ${formData.horarioContacto}
+Mensaje: ${formData.mensaje || 'Quisiera consultar disponibilidad y presupuesto.'}`
+  )}`;
 
   return (
-    <div className="space-y-12 py-4">
+    <div className="py-6 space-y-12 max-w-5xl mx-auto">
       {/* Header */}
-      <div className="text-center max-w-2xl mx-auto space-y-3">
-        <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#FAF0E6] text-[#9E4616] text-xs font-semibold uppercase tracking-wider">
-          <Mail className="w-3.5 h-3.5 text-[#E66E22]" />
+      <div className="text-center space-y-3">
+        <div className="inline-flex items-center px-3.5 py-1 rounded-full bg-[#FAF0E6] text-[#9E4616] text-xs font-semibold uppercase tracking-wider">
           <span>Contacto Directo</span>
         </div>
         <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#2A1F1B]">
-          Encargos y Consultas con Yanacari
+          Encargos y Presupuestos
         </h2>
-        <p className="text-sm text-[#665348] leading-relaxed">
-          Cuéntanos sobre tu evento o escríbenos directamente a WhatsApp para acordar sabores y porciones.
+        <p className="text-sm sm:text-base text-[#665348] max-w-2xl mx-auto leading-relaxed">
+          Cuéntanos sobre tu evento o la torta que imaginas. Puedes dejarnos tus datos en el formulario o escribir directamente a Yanacari por WhatsApp.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        {/* Info Column */}
-        <div className="lg:col-span-5 space-y-6">
-          <div className="bg-[#FAF7F2] rounded-3xl p-6 sm:p-7 border border-[#EBDCD0] space-y-5">
-            <h3 className="text-xl font-serif font-bold text-[#2A1F1B]">
-              Vías de Comunicación
-            </h3>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        {/* Formulario */}
+        <div className="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 border border-[#EBDCD0] shadow-xs">
+          <h3 className="text-xl font-serif font-bold text-[#2A1F1B] mb-2">
+            Formulario de Encargo / Consulta
+          </h3>
+          <p className="text-xs text-[#7A6153] mb-6">
+            Te responderemos en el horario que nos indiques.
+          </p>
 
-            <div className="space-y-4">
-              {/* WhatsApp */}
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[#25D366]/15 text-[#25D366] flex items-center justify-center shrink-0">
-                  <MessageCircle className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="text-[11px] uppercase font-semibold text-[#8C6D5B] tracking-wider">
-                    WhatsApp Preferido
-                  </h4>
-                  <a
-                    href={BUSINESS_INFO.whatsappUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => playMechanicalClick('click')}
-                    className="text-base font-bold text-[#2A1F1B] hover:text-[#C35C1D] transition-colors"
-                  >
-                    {BUSINESS_INFO.whatsappDisplay}
-                  </a>
-                  <p className="text-xs text-[#7A6153]">Atención directa y presupuestos</p>
-                </div>
-              </div>
-
-              {/* Email */}
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[#C35C1D]/15 text-[#C35C1D] flex items-center justify-center shrink-0">
-                  <Mail className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="text-[11px] uppercase font-semibold text-[#8C6D5B] tracking-wider">
-                    Correo Electrónico
-                  </h4>
-                  <a
-                    href={`mailto:${BUSINESS_INFO.email}`}
-                    onClick={() => playMechanicalClick('pop')}
-                    className="text-sm sm:text-base font-bold text-[#2A1F1B] hover:text-[#C35C1D] transition-colors break-all"
-                  >
-                    {BUSINESS_INFO.email}
-                  </a>
-                </div>
-              </div>
-
-              {/* Location */}
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[#507C5D]/15 text-[#507C5D] flex items-center justify-center shrink-0">
-                  <MapPin className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="text-[11px] uppercase font-semibold text-[#8C6D5B] tracking-wider">
-                    Ubicación del Taller
-                  </h4>
-                  <p className="text-xs sm:text-sm font-semibold text-[#2A1F1B]">
-                    Barrio Santa Rita, Maracay, Estado Aragua
-                  </p>
-                  <a
-                    href={BUSINESS_INFO.mapsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => playMechanicalClick('pop')}
-                    className="inline-flex items-center gap-1 text-xs font-semibold text-[#C35C1D] hover:underline mt-0.5"
-                  >
-                    <span>Ver en Google Maps</span>
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
-                </div>
-              </div>
-
-              {/* Schedules */}
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[#C9961A]/15 text-[#C9961A] flex items-center justify-center shrink-0">
-                  <Clock className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="text-[11px] uppercase font-semibold text-[#8C6D5B] tracking-wider">
-                    Horarios de Atención Sugeridos
-                  </h4>
-                  <p className="text-xs text-[#5D493E]">
-                    <strong>Turno Mañana:</strong> 9:00 AM – 1:00 PM (9 a 13)
-                  </p>
-                  <p className="text-xs text-[#5D493E]">
-                    <strong>Turno Tarde:</strong> 2:00 PM – 8:00 PM (14 a 20)
-                  </p>
-                </div>
+          {status === 'success' ? (
+            <div className="p-6 rounded-2xl bg-[#F0FDF4] border border-[#BBF7D0] text-center space-y-4 animate-in fade-in">
+              <CheckCircle className="w-12 h-12 text-[#16A34A] mx-auto" />
+              <h4 className="text-lg font-bold text-[#166534]">¡Consulta Recibida!</h4>
+              <p className="text-xs sm:text-sm text-[#14532D] leading-relaxed">
+                {feedbackMessage}
+              </p>
+              <div className="pt-2 flex flex-col sm:flex-row gap-2 justify-center">
+                <a
+                  href={whatsappPrefillUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold text-white bg-[#25D366] hover:bg-[#20BA5A] transition-colors"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  <span>Enviar también por WhatsApp</span>
+                </a>
+                <button
+                  onClick={() => {
+                    setStatus('idle');
+                    setFormData({
+                      nombre: '',
+                      telefono: '',
+                      tipoEvento: 'Cumpleaños / Celebración',
+                      fechaEvento: '',
+                      horarioContacto: '9 a 13',
+                      mensaje: '',
+                    });
+                  }}
+                  className="px-5 py-2.5 rounded-full text-xs font-semibold text-[#4A3931] bg-white border border-[#D5C2B4] hover:bg-[#F9EFE7] transition-colors"
+                >
+                  Enviar otra consulta
+                </button>
               </div>
             </div>
-          </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {status === 'error' && (
+                <div className="p-3.5 rounded-xl bg-[#FEF2F2] border border-[#FECACA] flex items-start gap-2 text-xs text-[#991B1B]">
+                  <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                  <span>{feedbackMessage}</span>
+                </div>
+              )}
 
-          {/* Suscripción por Teléfono */}
-          <div className="bg-white rounded-3xl p-6 border border-[#EBDCD0] shadow-xs space-y-3">
-            <h4 className="text-sm font-bold text-[#2A1F1B]">
-              Boletín de Novedades y Cursos
-            </h4>
-            <p className="text-xs text-[#6B574C]">
-              Déjanos tu número de teléfono para enterarte de próximas fechas de cursos y kits de repostería.
-            </p>
-
-            {subStatus === 'success' ? (
-              <div className="p-3 rounded-xl bg-[#E8F8EE] text-[#1E7841] text-xs font-semibold flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 shrink-0" />
-                <span>{subMsg}</span>
+              <div>
+                <label className="block text-xs font-semibold text-[#4A382F] mb-1">
+                  Tu Nombre y Apellido *
+                </label>
+                <div className="relative">
+                  <User className="w-4 h-4 text-[#A89182] absolute left-3.5 top-3" />
+                  <input
+                    type="text"
+                    name="nombre"
+                    required
+                    value={formData.nombre}
+                    onChange={handleChange}
+                    placeholder="Ej. María Pérez"
+                    className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-[#DBC8BC] focus:border-[#C35C1D] focus:ring-1 focus:ring-[#C35C1D] text-xs text-[#2A1F1B] outline-none"
+                  />
+                </div>
               </div>
-            ) : (
-              <form onSubmit={handleSubscribe} className="space-y-2">
-                <div className="flex gap-2">
+
+              <div>
+                <label className="block text-xs font-semibold text-[#4A382F] mb-1">
+                  Número de Teléfono / WhatsApp *
+                </label>
+                <div className="relative">
+                  <Phone className="w-4 h-4 text-[#A89182] absolute left-3.5 top-3" />
                   <input
                     type="tel"
+                    name="telefono"
                     required
-                    value={telefonoSub}
-                    onChange={(e) => setTelefonoSub(e.target.value)}
-                    placeholder="Tu teléfono (0414 1234567)"
-                    className="flex-1 px-3 py-2 rounded-xl border border-[#DFCEBF] bg-[#FAF8F5] text-xs text-[#2A1F1B] focus:outline-none focus:border-[#C35C1D]"
+                    value={formData.telefono}
+                    onChange={handleChange}
+                    placeholder="Ej. +58 414 1234567"
+                    className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-[#DBC8BC] focus:border-[#C35C1D] focus:ring-1 focus:ring-[#C35C1D] text-xs text-[#2A1F1B] outline-none"
                   />
-                  <button
-                    type="submit"
-                    disabled={subStatus === 'loading'}
-                    className="px-4 py-2 rounded-xl bg-[#C35C1D] text-white text-xs font-semibold hover:bg-[#A94B12] transition-colors cursor-pointer shrink-0 disabled:opacity-50"
-                  >
-                    Guardar
-                  </button>
-                </div>
-                {subStatus === 'error' && (
-                  <p className="text-[11px] text-[#C92A2A]">{subMsg}</p>
-                )}
-              </form>
-            )}
-          </div>
-        </div>
-
-        {/* Form Column */}
-        <div className="lg:col-span-7">
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#EBDCD0] shadow-xs">
-            <h3 className="text-2xl font-serif font-bold text-[#2A1F1B] mb-1">
-              Formulario de Consulta
-            </h3>
-            <p className="text-xs text-[#665348] mb-6">
-              Selecciona tu horario preferido para que Yanacari te contacte.
-            </p>
-
-            {status === 'success' && (
-              <div className="mb-6 p-4 rounded-2xl bg-[#E8F8EE] border border-[#BCE8CB] text-[#1E7841] flex items-start gap-3">
-                <CheckCircle className="w-5 h-5 shrink-0 mt-0.5" />
-                <div>
-                  <h4 className="font-semibold text-sm">¡Consulta Enviada!</h4>
-                  <p className="text-xs mt-0.5">{feedbackMessage}</p>
-                  <div className="mt-3">
-                    <a
-                      href={BUSINESS_INFO.whatsappUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-white bg-[#25D366] hover:bg-[#20BA5A] transition-colors"
-                    >
-                      <MessageCircle className="w-3.5 h-3.5" />
-                      <span>Escribir también por WhatsApp</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {status === 'error' && (
-              <div className="mb-6 p-3 rounded-2xl bg-[#FDEAEA] border border-[#F8C8C8] text-[#B82424] flex items-center gap-2">
-                <AlertCircle className="w-4 h-4 shrink-0" />
-                <p className="text-xs">{feedbackMessage}</p>
-              </div>
-            )}
-
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs font-semibold text-[#44332A] uppercase tracking-wider mb-1">
-                    Tu Nombre *
-                  </label>
-                  <div className="relative">
-                    <User className="w-4 h-4 text-[#A89487] absolute left-3 top-3" />
-                    <input
-                      type="text"
-                      name="nombre"
-                      required
-                      value={formData.nombre}
-                      onChange={handleChange}
-                      placeholder="Ej. María"
-                      className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-[#DFCEBF] bg-[#FAF8F5] text-xs sm:text-sm text-[#2A1F1B] focus:outline-none focus:border-[#C35C1D]"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-[#44332A] uppercase tracking-wider mb-1">
-                    Teléfono / WhatsApp *
-                  </label>
-                  <div className="relative">
-                    <Phone className="w-4 h-4 text-[#A89487] absolute left-3 top-3" />
-                    <input
-                      type="tel"
-                      name="telefono"
-                      required
-                      value={formData.telefono}
-                      onChange={handleChange}
-                      placeholder="Ej. 0414 1234567"
-                      className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-[#DFCEBF] bg-[#FAF8F5] text-xs sm:text-sm text-[#2A1F1B] focus:outline-none focus:border-[#C35C1D]"
-                    />
-                  </div>
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold text-[#44332A] uppercase tracking-wider mb-1">
-                    Tipo de Creación
+                  <label className="block text-xs font-semibold text-[#4A382F] mb-1">
+                    Tipo de Evento
                   </label>
                   <select
                     name="tipoEvento"
                     value={formData.tipoEvento}
                     onChange={handleChange}
-                    className="w-full px-3 py-2.5 rounded-xl border border-[#DFCEBF] bg-[#FAF8F5] text-xs sm:text-sm text-[#2A1F1B] focus:outline-none focus:border-[#C35C1D] cursor-pointer"
+                    className="w-full px-3 py-2.5 rounded-xl border border-[#DBC8BC] focus:border-[#C35C1D] text-xs text-[#2A1F1B] bg-white outline-none"
                   >
-                    <option value="Cumpleaños Infantil">Torta de Cumpleaños Infantil</option>
-                    <option value="Cumpleaños Adulto">Torta de Cumpleaños Adulto</option>
-                    <option value="Boda / 15 Años">Torta de Boda o 15 Años</option>
-                    <option value="Gelatina Artística 3D">Gelatina Artística 3D</option>
-                    <option value="Pasapalos & Catering">Pasapalos Dulces y Salados</option>
-                    <option value="Cursos o Kits">Cursos o Kits de Emprendedor</option>
-                    <option value="Otro Motivo">Otro Motivo</option>
+                    <option value="Cumpleaños / Celebración">Cumpleaños / Celebración</option>
+                    <option value="Boda / Matrimonio">Boda / Matrimonio</option>
+                    <option value="15 Años">15 Años</option>
+                    <option value="Bautizo / Primera Comunión">Bautizo / Primera Comunión</option>
+                    <option value="Gelatinas 3D Solicitud">Gelatinas 3D</option>
+                    <option value="Pasapalos y Dulces">Pasapalos y Dulces</option>
+                    <option value="Cursos / Talleres">Cursos de Repostería</option>
+                    <option value="Otro">Otro requerimiento</option>
                   </select>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-[#44332A] uppercase tracking-wider mb-1">
+                  <label className="block text-xs font-semibold text-[#4A382F] mb-1">
                     Fecha del Evento
                   </label>
                   <div className="relative">
-                    <Calendar className="w-4 h-4 text-[#A89487] absolute left-3 top-3" />
+                    <Calendar className="w-4 h-4 text-[#A89182] absolute left-3.5 top-3" />
                     <input
                       type="date"
                       name="fechaEvento"
                       value={formData.fechaEvento}
                       onChange={handleChange}
-                      className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-[#DFCEBF] bg-[#FAF8F5] text-xs sm:text-sm text-[#2A1F1B] focus:outline-none focus:border-[#C35C1D]"
+                      className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-[#DBC8BC] focus:border-[#C35C1D] text-xs text-[#2A1F1B] outline-none"
                     />
                   </div>
                 </div>
               </div>
 
-              {/* Horario de Contacto Preferido */}
               <div>
-                <label className="block text-xs font-semibold text-[#44332A] uppercase tracking-wider mb-1.5">
-                  Horario Preferido para Contactarte *
+                <label className="block text-xs font-semibold text-[#4A382F] mb-1">
+                  Horario Preferido para Contactarte
                 </label>
                 <div className="grid grid-cols-2 gap-3">
                   <label
-                    onClick={() => playMechanicalClick('pop')}
-                    className={`flex items-center gap-2.5 p-3 rounded-xl border cursor-pointer transition-all ${
+                    className={`flex items-center gap-2 p-2.5 rounded-xl border text-xs cursor-pointer ${
                       formData.horarioContacto === '9 a 13'
-                        ? 'border-[#C35C1D] bg-[#FFF5EE] text-[#8C461E]'
-                        : 'border-[#DFCEBF] hover:bg-[#FAF4EF] text-[#554339]'
+                        ? 'border-[#C35C1D] bg-[#FFF6EE] text-[#8C461E] font-semibold'
+                        : 'border-[#E2D2C6] bg-white text-[#5F4C41]'
                     }`}
                   >
                     <input
@@ -404,20 +240,16 @@ export const ContactSection: React.FC = () => {
                       value="9 a 13"
                       checked={formData.horarioContacto === '9 a 13'}
                       onChange={handleChange}
-                      className="text-[#C35C1D] focus:ring-[#C35C1D]"
+                      className="text-[#C35C1D]"
                     />
-                    <div>
-                      <span className="block text-xs sm:text-sm font-bold">9 a 13</span>
-                      <span className="block text-[11px] opacity-80">Mañana (9 AM – 1 PM)</span>
-                    </div>
+                    <span>9:00 a 13:00 (Mañana)</span>
                   </label>
 
                   <label
-                    onClick={() => playMechanicalClick('pop')}
-                    className={`flex items-center gap-2.5 p-3 rounded-xl border cursor-pointer transition-all ${
+                    className={`flex items-center gap-2 p-2.5 rounded-xl border text-xs cursor-pointer ${
                       formData.horarioContacto === '14 a 20'
-                        ? 'border-[#C35C1D] bg-[#FFF5EE] text-[#8C461E]'
-                        : 'border-[#DFCEBF] hover:bg-[#FAF4EF] text-[#554339]'
+                        ? 'border-[#C35C1D] bg-[#FFF6EE] text-[#8C461E] font-semibold'
+                        : 'border-[#E2D2C6] bg-white text-[#5F4C41]'
                     }`}
                   >
                     <input
@@ -426,41 +258,129 @@ export const ContactSection: React.FC = () => {
                       value="14 a 20"
                       checked={formData.horarioContacto === '14 a 20'}
                       onChange={handleChange}
-                      className="text-[#C35C1D] focus:ring-[#C35C1D]"
+                      className="text-[#C35C1D]"
                     />
-                    <div>
-                      <span className="block text-xs sm:text-sm font-bold">14 a 20</span>
-                      <span className="block text-[11px] opacity-80">Tarde (2 PM – 8 PM)</span>
-                    </div>
+                    <span>14:00 a 20:00 (Tarde)</span>
                   </label>
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#44332A] uppercase tracking-wider mb-1">
-                  Idea o Detalles del Pedido
+                <label className="block text-xs font-semibold text-[#4A382F] mb-1">
+                  Detalles del Pastel o Requerimiento
                 </label>
                 <textarea
                   name="mensaje"
-                  rows={4}
+                  rows={3}
                   value={formData.mensaje}
                   onChange={handleChange}
-                  placeholder="Cuéntanos el motivo, número de personas, sabores o si tienes alguna foto de referencia..."
-                  className="w-full px-3 py-2.5 rounded-xl border border-[#DFCEBF] bg-[#FAF8F5] text-xs sm:text-sm text-[#2A1F1B] focus:outline-none focus:border-[#C35C1D]"
-                ></textarea>
+                  placeholder="Ej. Cantidad estimada de porciones, temática, sabores preferidos..."
+                  className="w-full p-3 rounded-xl border border-[#DBC8BC] focus:border-[#C35C1D] text-xs text-[#2A1F1B] outline-none"
+                />
               </div>
 
               <button
                 type="submit"
                 disabled={status === 'submitting'}
-                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-sm font-semibold text-white bg-[#C35C1D] hover:bg-[#A94B12] shadow-sm transition-all cursor-pointer disabled:opacity-50"
+                className="w-full flex items-center justify-center gap-2 py-3 rounded-full text-xs font-semibold text-white bg-[#C35C1D] hover:bg-[#A94B12] transition-colors cursor-pointer disabled:opacity-50"
               >
-                <Send className="w-4 h-4" />
-                <span>
-                  {status === 'submitting' ? 'Enviando consulta...' : 'Enviar Consulta a Yanacari'}
-                </span>
+                <Send className="w-3.5 h-3.5" />
+                <span>{status === 'submitting' ? 'Enviando consulta...' : 'Enviar Solicitud'}</span>
               </button>
             </form>
+          )}
+        </div>
+
+        {/* Canales de Contacto Directo */}
+        <div className="lg:col-span-5 space-y-6">
+          <div className="bg-[#FAF7F2] rounded-3xl p-6 sm:p-7 border border-[#EBDCD0] space-y-5">
+            <h3 className="text-xl font-serif font-bold text-[#2A1F1B]">
+              Atención Directa
+            </h3>
+
+            <div className="space-y-4 text-xs sm:text-sm">
+              <div className="flex items-start gap-3">
+                <div className="w-9 h-9 rounded-full bg-[#25D366]/10 text-[#25D366] flex items-center justify-center shrink-0">
+                  <Phone className="w-4 h-4" />
+                </div>
+                <div>
+                  <span className="text-[11px] text-[#7A6153] block">WhatsApp Oficial:</span>
+                  <a
+                    href={BUSINESS_INFO.whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-bold text-[#2A1F1B] hover:text-[#25D366] transition-colors"
+                  >
+                    {BUSINESS_INFO.whatsappDisplay}
+                  </a>
+                  <p className="text-[11px] text-[#8C7164] mt-0.5">
+                    Respuesta rápida para coordinar presupuestos y fechas
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <div className="w-9 h-9 rounded-full bg-[#C35C1D]/10 text-[#C35C1D] flex items-center justify-center shrink-0">
+                  <Mail className="w-4 h-4" />
+                </div>
+                <div>
+                  <span className="text-[11px] text-[#7A6153] block">Correo Electrónico:</span>
+                  <a
+                    href={`mailto:${BUSINESS_INFO.email}`}
+                    className="font-bold text-[#2A1F1B] hover:text-[#C35C1D] transition-colors underline break-all"
+                  >
+                    {BUSINESS_INFO.email}
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <div className="w-9 h-9 rounded-full bg-[#507C5D]/10 text-[#507C5D] flex items-center justify-center shrink-0">
+                  <Clock className="w-4 h-4" />
+                </div>
+                <div>
+                  <span className="text-[11px] text-[#7A6153] block">Horarios de Atención:</span>
+                  <p className="font-semibold text-[#2A1F1B]">
+                    Lunes a Sábado: 9:00 - 13:00 / 14:00 - 20:00
+                  </p>
+                  <p className="text-[11px] text-[#8C7164]">
+                    Domingos: Solo entregas previamente agendadas
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <div className="w-9 h-9 rounded-full bg-[#D67C3B]/10 text-[#D67C3B] flex items-center justify-center shrink-0">
+                  <MapPin className="w-4 h-4" />
+                </div>
+                <div>
+                  <span className="text-[11px] text-[#7A6153] block">Ubicación del Taller:</span>
+                  <p className="font-semibold text-[#2A1F1B]">
+                    Barrio Santa Rita, Maracay, Estado Aragua
+                  </p>
+                  <a
+                    href={BUSINESS_INFO.mapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-[#C35C1D] hover:underline font-semibold inline-block mt-1"
+                  >
+                    Abrir en Google Maps &rarr;
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-2">
+              <a
+                href={`${BUSINESS_INFO.whatsappUrl}?text=Hola%20Yanacari,%20quiero%20hacer%20un%20encargo%20directamente.`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full flex items-center justify-center gap-2 py-3 rounded-full text-xs font-semibold text-white bg-[#25D366] hover:bg-[#20BA5A] transition-colors shadow-xs"
+              >
+                <MessageCircle className="w-4 h-4" />
+                <span>Escribir directamente por WhatsApp</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
