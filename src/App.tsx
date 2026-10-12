@@ -1,187 +1,101 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import React, { useState } from 'react';
-import {
-  MessageSquare,
-  Globe,
-  Code2,
-  BookOpen,
-  Sparkles,
-  ExternalLink,
-  Bot,
-  Heart,
-} from 'lucide-react';
-import { CHAT_ROLES } from './data/alicarData';
-import { ChatRole } from './types/chat';
-import { ChatWindow } from './components/ChatWindow';
-import { WebSimulator } from './components/WebSimulator';
-import { EmbedGuide } from './components/EmbedGuide';
-import { CatalogExplorer } from './components/CatalogExplorer';
-import { RoleSelectorModal } from './components/RoleSelectorModal';
-
-type TabType = 'chat' | 'simulator' | 'install' | 'catalog';
+import { Navbar, ActiveSection } from './components/Navbar';
+import { Hero } from './components/Hero';
+import { GallerySection } from './components/GallerySection';
+import { ServicesSection } from './components/ServicesSection';
+import { TestimonialsSection } from './components/TestimonialsSection';
+import { ContactSection } from './components/ContactSection';
+import { HistoryValues } from './components/HistoryValues';
+import { Footer } from './components/Footer';
+import { FloatingWhatsApp } from './components/FloatingWhatsApp';
+import { MascotAIChat } from './components/MascotAIChat';
+import { SuggestionsModal } from './components/SuggestionsModal';
+import { SitemapModal } from './components/SitemapModal';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<TabType>('chat');
-  const [currentRole, setCurrentRole] = useState<ChatRole>(CHAT_ROLES[0]);
-  const [selectedModel, setSelectedModel] = useState<string>('gemini-3.8-flash');
-  const [isRoleModalOpen, setIsRoleModalOpen] = useState(false);
-  const [pendingPrompt, setPendingPrompt] = useState<string | null>(null);
-
-  const handleSelectRole = (role: ChatRole) => {
-    setCurrentRole(role);
-  };
-
-  const handleUpdateSystemInstruction = (newInstruction: string) => {
-    setCurrentRole((prev) => ({
-      ...prev,
-      systemInstruction: newInstruction,
-    }));
-  };
-
-  const handleAskAboutProduct = (prompt: string) => {
-    setPendingPrompt(prompt);
-    setActiveTab('chat');
-  };
+  const [activeSection, setActiveSection] = useState<ActiveSection>('principal');
+  const [suggestionsOpen, setSuggestionsOpen] = useState(false);
+  const [sitemapOpen, setSitemapOpen] = useState(false);
+  const [alicatChatOpen, setAlicatChatOpen] = useState(false);
 
   return (
-    <div className="flex flex-col h-screen w-screen bg-gradient-to-br from-[#fff0f6] via-[#fcf8fc] to-[#f5eefb] text-slate-800 overflow-hidden font-sans">
-      {/* Global Top Navbar */}
-      <header className="bg-white/95 backdrop-blur-md border-b border-pink-100 px-4 sm:px-6 py-2.5 flex items-center justify-between shrink-0 shadow-xs z-30">
-        {/* Brand / Title */}
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-pink-500 via-rose-500 to-purple-600 flex items-center justify-center text-2xl shadow-md text-white border-2 border-white select-none">
-            🐱
-          </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <h1 className="font-extrabold text-base sm:text-lg text-[#4a1c5d] tracking-tight">
-                Alicat AI
-              </h1>
-              <span className="text-[11px] font-bold bg-pink-100 text-pink-700 px-2 py-0.5 rounded-full hidden sm:inline">
-                Para yoinnerm.github.io
-              </span>
-            </div>
-            <p className="text-[11px] text-gray-500 flex items-center gap-1.5">
-              <span>Chatbot inteligente de</span>
-              <a
-                href="https://yoinnerm.github.io/"
-                target="_blank"
-                rel="noreferrer"
-                className="font-semibold text-pink-600 hover:text-pink-800 flex items-center gap-0.5 underline"
-              >
-                <span>Alicar TIENDA</span>
-                <ExternalLink className="w-2.5 h-2.5" />
-              </a>
-            </p>
-          </div>
-        </div>
+    <div className="min-h-screen flex flex-col bg-[#FFFDFB] text-[#2C211D] font-sans antialiased selection:bg-[#E88B52]/20 selection:text-[#9B3E12]">
+      {/* 1. Header con pestañas de navegación para las 3 secciones */}
+      <Navbar
+        activeSection={activeSection}
+        onSectionChange={setActiveSection}
+        onOpenAlicatChat={() => setAlicatChatOpen(true)}
+      />
 
-        {/* Center Tabs Navigation */}
-        <nav className="flex items-center gap-1 bg-pink-50/70 p-1 rounded-2xl border border-pink-100/80">
-          <button
-            onClick={() => setActiveTab('chat')}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${
-              activeTab === 'chat'
-                ? 'bg-white text-pink-700 shadow-xs'
-                : 'text-gray-600 hover:text-pink-700'
-            }`}
-          >
-            <MessageSquare className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Chat con Alicat</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('simulator')}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${
-              activeTab === 'simulator'
-                ? 'bg-white text-pink-700 shadow-xs'
-                : 'text-gray-600 hover:text-pink-700'
-            }`}
-          >
-            <Globe className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Simulador en tu Web</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('install')}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${
-              activeTab === 'install'
-                ? 'bg-white text-pink-700 shadow-xs'
-                : 'text-gray-600 hover:text-pink-700'
-            }`}
-          >
-            <Code2 className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Código para tu Web</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('catalog')}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${
-              activeTab === 'catalog'
-                ? 'bg-white text-pink-700 shadow-xs'
-                : 'text-gray-600 hover:text-pink-700'
-            }`}
-          >
-            <BookOpen className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Catálogo Alicar</span>
-          </button>
-        </nav>
-
-        {/* Right Status / Model pill */}
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => setIsRoleModalOpen(true)}
-            className="flex items-center gap-1.5 bg-white hover:bg-pink-50 text-gray-700 px-3 py-1.5 rounded-xl border border-pink-200 text-xs font-medium shadow-2xs transition cursor-pointer"
-            title="Ajustar rol o modelo Gemini"
-          >
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="hidden md:inline font-mono text-[11px] text-pink-700">
-              {selectedModel}
-            </span>
-            <Bot className="w-3.5 h-3.5 text-pink-600" />
-          </button>
-        </div>
-      </header>
-
-      {/* Main Viewport Content */}
-      <main className="flex-1 overflow-hidden p-3 sm:p-5 relative">
-        <div className="max-w-7xl mx-auto h-full">
-          {activeTab === 'chat' && (
-            <ChatWindow
-              currentRole={currentRole}
-              selectedModel={selectedModel}
-              onOpenRoleModal={() => setIsRoleModalOpen(true)}
-              onNavigateToSimulator={() => setActiveTab('simulator')}
-              pendingPrompt={pendingPrompt}
-              onClearPendingPrompt={() => setPendingPrompt(null)}
+      {/* 2. Contenido según la sección activa */}
+      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-6 sm:py-8">
+        {/* SECCIÓN 1: Principal & Muestrario */}
+        {activeSection === 'principal' && (
+          <div className="space-y-12 animate-in fade-in duration-300">
+            {/* Resumen de bienvenida */}
+            <Hero
+              onGoToContact={() => {
+                setActiveSection('contacto');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              onOpenAlicatChat={() => setAlicatChatOpen(true)}
             />
-          )}
 
-          {activeTab === 'simulator' && (
-            <WebSimulator onGoToInstall={() => setActiveTab('install')} />
-          )}
+            {/* Muestrario Interactivo deslizable */}
+            <GallerySection />
 
-          {activeTab === 'install' && <EmbedGuide />}
+            {/* Nuestros Servicios */}
+            <ServicesSection />
 
-          {activeTab === 'catalog' && (
-            <CatalogExplorer onAskAboutProduct={handleAskAboutProduct} />
-          )}
-        </div>
+            {/* Reseñas y Google Maps abajo */}
+            <TestimonialsSection />
+          </div>
+        )}
+
+        {/* SECCIÓN 2: Contacto & Formulario */}
+        {activeSection === 'contacto' && (
+          <div className="animate-in fade-in duration-300">
+            <ContactSection />
+          </div>
+        )}
+
+        {/* SECCIÓN 3: Misión, Visión & Legales */}
+        {activeSection === 'nosotros' && (
+          <div className="animate-in fade-in duration-300">
+            <HistoryValues
+              onOpenSuggestions={() => setSuggestionsOpen(true)}
+            />
+          </div>
+        )}
       </main>
 
-      {/* Role / Model Settings Modal */}
-      <RoleSelectorModal
-        isOpen={isRoleModalOpen}
-        onClose={() => setIsRoleModalOpen(false)}
-        currentRole={currentRole}
-        onSelectRole={handleSelectRole}
-        selectedModel={selectedModel}
-        onSelectModel={setSelectedModel}
-        onUpdateSystemInstruction={handleUpdateSystemInstruction}
+      {/* 3. Pie de página permanente */}
+      <Footer
+        onNavigateTab={(tab) => {
+          setActiveSection(tab);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
+        onOpenSuggestions={() => setSuggestionsOpen(true)}
+        onOpenSitemap={() => setSitemapOpen(true)}
+      />
+
+      {/* 4. Elementos flotantes de acceso directo */}
+      <MascotAIChat
+        isOpen={alicatChatOpen}
+        onToggle={() => setAlicatChatOpen(!alicatChatOpen)}
+      />
+
+      <FloatingWhatsApp />
+
+      {/* 5. Modales */}
+      <SuggestionsModal
+        isOpen={suggestionsOpen}
+        onClose={() => setSuggestionsOpen(false)}
+      />
+
+      <SitemapModal
+        isOpen={sitemapOpen}
+        onClose={() => setSitemapOpen(false)}
       />
     </div>
   );

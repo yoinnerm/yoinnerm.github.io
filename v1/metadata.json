@@ -1,0 +1,7 @@
+{
+  "name": "Alicat AI - Chatbot para Alicar Tienda",
+  "description": "Chatbot con IA Gemini especializado para la tienda de repostería Alicar (yoinnerm.github.io), con atención al cliente, asesoría repostera y widget integrable.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
