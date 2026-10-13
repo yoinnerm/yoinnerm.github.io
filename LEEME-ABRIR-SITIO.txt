@@ -1,0 +1,7 @@
+Este zip es el PROYECTO FUENTE (React + Vite). Su index.html NO se puede abrir con doble clic:
+apunta a /src/main.tsx y el navegador lo bloquea en file://.
+
+Para ver la pagina sin instalar nada: usa el zip "tortas-alicar_v6_sitio-listo.zip" (abre su index.html).
+Para recompilar desde el proyecto:  npm install  y luego  npm run build  (genera dist/ listo para abrir o subir).
+
+Correccion incluida: se agrego src/components/MascotAvatar.tsx, que faltaba y hacia fallar la compilacion.
